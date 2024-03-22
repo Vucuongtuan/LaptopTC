@@ -1,12 +1,15 @@
 "use client";
 import { IMenuItem } from "@/types/ui/index.types";
+import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuContent,
+  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import {
   DropdownMenu,
@@ -16,45 +19,45 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
 import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Cookies from "js-cookie";
-import React from "react";
+import React, { useEffect } from "react";
 import { Icons } from "@/components/ui/icons";
 import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import SearchBox from "../searchBox";
 import LoginAndResigter from "../loginAndResigter";
 import Cart from "../Cart/Cart";
-import { ListItem } from "./navbar";
 
-export const NavBar = ({
+const NavBar = ({
   menuLaptop,
   menuMouse,
 }: {
   menuLaptop: IMenuItem[];
   menuMouse: IMenuItem[];
 }) => {
-  const [name, setName] = React.useState([]);
   const LoginElement = () => {
     if (typeof window !== "undefined") {
       const checkToken = Cookies?.get("userToken");
       const usernameLocal = localStorage?.getItem("userData") ?? "";
-      // const parseJson = JSON.parse(usernameLocal) ?? "";
-      setName(usernameLocal);
       return (
         <DropdownMenu>
           <DropdownMenuTrigger>
@@ -80,7 +83,7 @@ export const NavBar = ({
               {checkToken ? (
                 <>
                   <DropdownMenuLabel>
-                    Khách hàng : {name.userName}
+                    Khách hàng : {usernameLocal}
                   </DropdownMenuLabel>
                   <DropdownMenuItem>Profile</DropdownMenuItem>
                   <DropdownMenuItem>Billing</DropdownMenuItem>
@@ -101,40 +104,40 @@ export const NavBar = ({
             </span>
             <DropdownMenuSeparator />
             {/* <Accordion type="single" collapsible>
-                              <AccordionItem value="item-2">
-                                <AccordionTrigger>Giao diện</AccordionTrigger>
-                                <AccordionContent>
-                                  <div className="flex flex-wap">
-                                    <RadioGroup defaultValue="option-one">
-                                      <div className="flex items-center space-x-2">
-                                        <RadioGroupItem
-                                          value="option-one"
-                                          id="option-one"
-                                          onClick={() => setTheme("light")}
-                                        />
-                                        <Label htmlFor="option-one">Light mode</Label>
-                                      </div>
-                                      <div className="flex items-center space-x-2">
-                                        <RadioGroupItem
-                                          value="option-two"
-                                          id="option-two"
-                                          onClick={() => setTheme("dark")}
-                                        />
-                                        <Label htmlFor="option-two">Dark mode </Label>
-                                      </div>
-                                      <div className="flex items-center space-x-2">
-                                        <RadioGroupItem
-                                          value="option-three"
-                                          id="option-three"
-                                          onClick={() => setTheme("system")}
-                                        />
-                                        <Label htmlFor="option-three">System </Label>
-                                      </div>
-                                    </RadioGroup>
-                                  </div>
-                                </AccordionContent>
-                              </AccordionItem>
-                            </Accordion> */}
+              <AccordionItem value="item-2">
+                <AccordionTrigger>Giao diện</AccordionTrigger>
+                <AccordionContent>
+                  <div className="flex flex-wap">
+                    <RadioGroup defaultValue="option-one">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          value="option-one"
+                          id="option-one"
+                          onClick={() => setTheme("light")}
+                        />
+                        <Label htmlFor="option-one">Light mode</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          value="option-two"
+                          id="option-two"
+                          onClick={() => setTheme("dark")}
+                        />
+                        <Label htmlFor="option-two">Dark mode </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          value="option-three"
+                          id="option-three"
+                          onClick={() => setTheme("system")}
+                        />
+                        <Label htmlFor="option-three">System </Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -288,3 +291,31 @@ export const NavBar = ({
     </>
   );
 };
+
+export default NavBar;
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";
