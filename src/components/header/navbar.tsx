@@ -59,7 +59,12 @@ const NavBar = ({
       const checkToken = Cookies?.get("userToken");
       const usernameLocal = localStorage?.getItem("userData") ?? "";
       // const parseJson = JSON.parse(usernameLocal);
-   const parseJson = JSON.parse(usernameLocal) ?? "";
+  let parsedData;
+      try {
+        parsedData = JSON.parse(usernameLocal);
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
       return (
         <DropdownMenu>
           <DropdownMenuTrigger>
