@@ -58,8 +58,8 @@ const NavBar = ({
     if (typeof window !== "undefined") {
       const checkToken = Cookies?.get("userToken");
       const usernameLocal = localStorage?.getItem("userData") ?? "";
-      const parseJson = JSON.parse(usernameLocal);
-
+      // const parseJson = JSON.parse(usernameLocal);
+   const parseJson = JSON.parse(usernameLocal) ?? "";
       return (
         <DropdownMenu>
           <DropdownMenuTrigger>
