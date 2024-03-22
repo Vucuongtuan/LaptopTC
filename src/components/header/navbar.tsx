@@ -46,7 +46,7 @@ import { Button } from "@/components/ui/button";
 import SearchBox from "../searchBox";
 import LoginAndResigter from "../loginAndResigter";
 import Cart from "../Cart/Cart";
-
+import dynamic from "next/dynamic";
 const NavBar = ({
   menuLaptop,
   menuMouse,
@@ -294,8 +294,7 @@ const NavBar = ({
   );
 };
 
-export default NavBar;
-
+export default dynamic(() => Promise.resolve(NavBar), { ssr: false });
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">
