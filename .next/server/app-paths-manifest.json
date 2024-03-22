@@ -1,0 +1,9 @@
+{
+  "/_not-found": "app/_not-found.js",
+  "/page": "app/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/details/[id]/page": "app/details/[id]/page.js",
+  "/product/banphim/page": "app/product/banphim/page.js",
+  "/product/laptop/page": "app/product/laptop/page.js",
+  "/product/chuot/page": "app/product/chuot/page.js"
+}
