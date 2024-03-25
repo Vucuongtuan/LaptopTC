@@ -6,7 +6,7 @@ import StoreProvider from "./StoreProvider";
 import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/toaster";
 import TanStackProviders from "@/components/tanstackProvider";
-
+import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -32,6 +32,7 @@ export default function RootLayout({
         </TanStackProviders>
 
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
