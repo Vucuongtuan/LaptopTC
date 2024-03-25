@@ -196,8 +196,8 @@ const NavBar = ({
   return (
     <>
       <div className="flex justify-between items-center h-[50px] sm:h-[60px] ">
-        <div className="w-[200px] flex justify-center items-center sm:w-[]">
-          <div className=" ml-2">
+        <div className="w-[200px] flex justify-center items-center sm:justify-start">
+          <div className=" ml-2 sm:text-left sm:text-xl">
             <h1>LaptopTC</h1>
           </div>
         </div>

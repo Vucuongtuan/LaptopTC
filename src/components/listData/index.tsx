@@ -13,7 +13,7 @@ export default function ListData({ data, name }: ListProductProps) {
         <h2 className="h-full font-semibold  flex items-center">
           <Link
             href="#"
-            className="text-yellow-300 text-[2rem] mr-2 sm:text-[1.2rem]"
+            className="text-yellow-300 text-[2rem] mr-2 sm:text-[0.8rem]"
           >
             {name}
           </Link>{" "}
@@ -24,7 +24,7 @@ export default function ListData({ data, name }: ListProductProps) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-8 h-8"
+            className="w-8 h-8 sm:w-6 sm:h-6"
           >
             <path
               strokeLinecap="round"

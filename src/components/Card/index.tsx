@@ -27,7 +27,7 @@ const Card = ({ data }: { data: IApiProduct | IApiKeyboard | IApiMouse }) => {
         key={data._id}
         className="bg-white rounded-md shadow-md overflow-hidden relative"
       >
-        <figure className="h-[250px] bg-white relative sm:h-[200px]">
+        <figure className="h-[250px] bg-white relative sm:h-[180px] sm:min-h-[150px] sm:max-h-[180px]">
           <Image
             height={500}
             width={500}
@@ -37,7 +37,7 @@ const Card = ({ data }: { data: IApiProduct | IApiKeyboard | IApiMouse }) => {
             className="h-full w-full object-contain  hover:scale-110 transition duration-700"
           />
         </figure>
-        <div className="card-body h-[150px] px-4 py-4 sm:h-[130px] md:h-[150px] sm:px-1">
+        <div className="card-body h-[150px] px-4 py-4 sm:h-[120px] md:h-[150px] sm:px-1">
           <h2 className="card-title text-[0.88rem] sm:text-[0.7rem] ">
             {data.name}
           </h2>
@@ -48,21 +48,21 @@ const Card = ({ data }: { data: IApiProduct | IApiKeyboard | IApiMouse }) => {
           )}
 
           <p className="text-red-500 font-medium flex flex-col">
-            <div className="text-[0.7rem] sm:text-[0.7em]">
+            <div className="text-[0.7rem] sm:text-[0.6rem]">
               <del className="text-[#c7c8c9] ">
                 {newTotal.replace(/\B(?=(\d{3})+(?!\d))/g, ".")} VND
               </del>
               <span className="ml-4">{"-" + data?.discount_percent + "%"}</span>
             </div>
-            <span className="sm:text-[0.9rem]">
+            <span className="sm:text-[0.7rem]">
               {newDiscount.replace(/\B(?=(\d{3})+(?!\d))/g, ".")} VND
             </span>{" "}
           </p>
           <div className="card-actions flex justify-end mt-2 sm:mt-1 sm:absolute sm:bottom-[7px] sm:right-2">
-            <div className="badge badge-outline mr-3 sm:text-[0.7em]">
+            <div className="badge badge-outline mr-3 sm:text-[0.6rem]">
               {data?.totalPurchases || 0} đã bán
             </div>
-            <div className="badge badge-outline sm:text-[0.7em]">
+            <div className="badge badge-outline sm:text-[0.6rem]">
               Còn {data?.inventory}
             </div>
           </div>

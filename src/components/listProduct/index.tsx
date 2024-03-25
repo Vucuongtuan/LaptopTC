@@ -56,6 +56,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 import Card from "../Card";
+import { Skeleton } from "../ui/skeleton";
 
 const ContentListProduct = ({ name }: { name: string }) => {
   const router = useSearchParams();
@@ -67,14 +68,16 @@ const ContentListProduct = ({ name }: { name: string }) => {
     queryFn: () => getDataToBrands(idBrand, name),
     refetchInterval: 600000,
   });
-  console.log("====================================");
-  console.log(data);
-  console.log("====================================");
+
   useEffect(() => {
     refetch();
   }, [idBrand, name, refetch]);
   if (isFetching) {
-    return <>Loading...</>;
+    return (
+      <Skeleton className="shadow-xl flex h-[500px] w-full text-center justify-center items-center  p-4 ">
+        Loading...
+      </Skeleton>
+    );
   }
   if (error !== null) {
     const { response, message }: any = error;

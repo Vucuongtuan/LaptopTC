@@ -92,10 +92,10 @@ export const getBrand = async (name: string | unknown) => {
   });
   return data;
 };
-export const getAllData = async (id: string) => {
+export const getAllData = async (id?: string) => {
   const query = `/all-product?id=${id}`;
   let url;
-  if (!query) {
+  if (!id) {
     url = "/all-product";
   } else {
     url = query;
