@@ -2,16 +2,13 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { useDebounce } from "use-debounce";
-import { useSearchParams } from "next/navigation";
 import { getAllData } from "@/api/product/index.api";
 import Image from "next/image";
 export default function SearchBox() {
-  const searchParams = useSearchParams();
   const [changeInput, setChangeInput] = React.useState<string>("");
   const [listSearch, setListSearch] = React.useState<any[]>([]);
   const [actionDropdown, setActionDropdown] = React.useState<boolean>(false);
   const [debounce] = useDebounce(changeInput, 700);
-  // const searchData = ActionSearch.bind(null, changeInput);
   React.useEffect(() => {
     const getDataSearch = async () => {
       if (changeInput.trim() !== "") {
