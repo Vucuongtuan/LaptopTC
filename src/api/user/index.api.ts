@@ -1,4 +1,5 @@
 import http from "@/utils/axios";
+import axios from "axios";
 
 type TSignupAccountData = {
   name: string;
@@ -7,6 +8,15 @@ type TSignupAccountData = {
   password: string;
   phone: string;
   address: string;
+};
+type TAddToCartData = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  userId: string;
+  total: number;
+  listProduct: any[];
 };
 export const SigninAccount = async (
   email: string,
@@ -25,5 +35,21 @@ export const SignupAccount = async (data: TSignupAccountData) => {
     phone: data.phone,
     address: data.address,
   });
+  return res.data;
+};
+export const AddToCart = async (data: TAddToCartData) => {
+  const dataList = {
+    name: data.name,
+    phone: data.phone,
+    address: data.address,
+    email: data.email,
+    userId: data.userId,
+    total: data.total,
+    listProduct: data.listProduct,
+  };
+  const res = await axios.post("http://localhost:4000/cart", dataList);
+  console.log("====================================");
+  console.log(dataList);
+  console.log("====================================");
   return res.data;
 };

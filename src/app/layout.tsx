@@ -30,7 +30,6 @@ export default function RootLayout({
             <Footer />
           </StoreProvider>
         </TanStackProviders>
-
         <Toaster />
         <Analytics />
       </body>

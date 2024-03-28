@@ -51,12 +51,7 @@ export default function Login() {
           userName: res.username,
         })
       );
-      localStorage.setItem(
-        "userID",
-        JSON.stringify({
-          userId: res.userId,
-        })
-      );
+      localStorage.setItem("userID", res.userId);
 
       toast({
         title: "Đăng nhập thành công",

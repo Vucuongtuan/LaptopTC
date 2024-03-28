@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { Minus, Plus } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -19,9 +20,14 @@ import {
   setCheckCartLocal,
   setIsOpenModalCart,
 } from "@/lib/features/checkCartLocal";
+import Cookies from "js-cookie";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 export default function Cart() {
+  const router = useRouter();
+  const { toast } = useToast();
   const dispatch = useDispatch();
   const [cartTotal, setCartTotal] = React.useState<number>(0);
   const dataCart = useSelector((state: any) => state.checkCartLocal.arrayCart);
@@ -51,6 +57,17 @@ export default function Cart() {
   const stringSubTotal = subTotal.acc.toString();
   const handleRemoveItemCart = (id: string) => {
     dispatch(removeItemFromCart(id));
+  };
+  const handleNextPageThanhToan = () => {
+    const checkToken = Cookies.get("userToken");
+    if (checkToken === undefined) {
+      toast({
+        title: "Chưa đăng nhập",
+        description: "Vui lòng đăng nhập để tiếp tục mua hàng",
+      });
+    } else {
+      router.push("/thanhtoan");
+    }
   };
   return (
     <Drawer>
@@ -88,7 +105,10 @@ export default function Cart() {
         </DrawerHeader>
         <div className="mt-8">
           <div className="flow-root">
-            <ul role="list" className="-my-6 divide-y divide-gray-200">
+            <ul
+              role="list"
+              className="-my-6 divide-y divide-gray-200 px-6 overflow-y-scroll h-[350px] "
+            >
               {products.map((product: any) => {
                 const price = product.total.toString();
 
@@ -136,7 +156,7 @@ export default function Cart() {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+        <div className="border-t border-gray-200 px-8 py-2 bg-white sm:px-6 z-50 w-full">
           <div className="flex justify-between text-base font-medium text-gray-900">
             <p>Tổng giá Sản phẩm</p>
           </div>
@@ -144,12 +164,12 @@ export default function Cart() {
             {stringSubTotal.replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ
           </p>
           <div className="mt-6">
-            <Link
-              href="/thanhtoan"
-              className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+            <Button
+              onClick={handleNextPageThanhToan}
+              className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
             >
               Đến trang thanh toán
-            </Link>
+            </Button>
           </div>
         </div>
       </DrawerContent>

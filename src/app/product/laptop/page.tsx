@@ -3,7 +3,7 @@ import ContentListProduct from "@/components/listProduct";
 import { Metadata } from "next";
 import React from "react";
 export const metadata: Metadata = {
-  title: "Laptop_TC | Laptop gaming,văn phòng , chính hãng chất lượng cao",
+  title: "Laptop_TC | Thanh toán",
   description:
     "Chuyên cung cấp các dòng laptop gaming,văn phòng chất lượng cao",
 };
