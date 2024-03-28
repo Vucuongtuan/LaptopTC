@@ -1,5 +1,12 @@
 {
-  "/thanhtoan/page": "app/thanhtoan/page.js",
+  "/_not-found": "app/_not-found.js",
+  "/checkLogin/page": "app/checkLogin/page.js",
   "/page": "app/page.js",
-  "/checkLogin/page": "app/checkLogin/page.js"
+  "/(auth)/admin/login/page": "app/(auth)/admin/login/page.js",
+  "/thanhtoan/page": "app/thanhtoan/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/product/laptop/page": "app/product/laptop/page.js",
+  "/product/banphim/page": "app/product/banphim/page.js",
+  "/product/chuot/page": "app/product/chuot/page.js",
+  "/details/[id]/page": "app/details/[id]/page.js"
 }
