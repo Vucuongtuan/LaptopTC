@@ -22,7 +22,7 @@ export default function SearchBox() {
       }
     };
     getDataSearch();
-  }, [debounce]);
+  }, [debounce, changeInput]);
 
   return (
     <div className="relative">

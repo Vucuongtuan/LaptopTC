@@ -1,8 +1,7 @@
 import BreadcrumdTheme from "@/components/breadcrumbTheme";
 import { Container } from "@mui/material";
 import StepperElement from "./stepperElement";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Thanh toán | Laptop_TC",
