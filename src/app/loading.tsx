@@ -26,7 +26,7 @@ const Loading = () => {
           }}
         >
           <Typography fontWeight="700" fontSize="1.7rem">
-            <span style={{ color: "red" }}> VTC</span> Computer
+            <span style={{ color: "red" }}> Laptop</span> TC
           </Typography>
         </Box>
       </Paper>

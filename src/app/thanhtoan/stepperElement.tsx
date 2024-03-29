@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -14,7 +14,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { set, useForm } from "react-hook-form";
 import { Checkbox } from "@/components/ui/checkbox";
-
+import Cookies from "js-cookie";
 import {
   Form,
   FormControl,
@@ -32,6 +32,7 @@ import {
 import { CircularProgress } from "@mui/material";
 import { Terminal } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const steps = [
   "Giỏ hàng",
@@ -75,6 +76,14 @@ export default function StepperElement() {
   const [dataValue, setDataValue] = React.useState<FormValues>();
   const dispatch = useDispatch();
   const cartData = useSelector((state: any) => state.checkCartLocal.arrayCart);
+  const router = useRouter();
+  useEffect(() => {
+    const tokenCheck = Cookies.get("userToken");
+    if (!tokenCheck) {
+      router.push("/checkLogin");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -91,7 +100,8 @@ export default function StepperElement() {
 
   const handleAddCart = async () => {
     setIsLoading(true);
-    const userId = localStorage.getItem("userID") ?? "";
+    const userId =
+      (typeof window !== "undefined" && localStorage.getItem("userID")) ?? "";
     const subTotal = cartData.reduce(
       (accumulator: any, product: any) => {
         if (product && typeof product.total === "number") {
