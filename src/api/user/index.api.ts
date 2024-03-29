@@ -47,9 +47,11 @@ export const AddToCart = async (data: TAddToCartData) => {
     total: data.total,
     listProduct: data.listProduct,
   };
-  const res = await axios.post("http://localhost:4000/cart", dataList);
-  console.log("====================================");
-  console.log(dataList);
-  console.log("====================================");
+  const res = await http.post("/cart", dataList);
+
+  return res.data;
+};
+export const GetIdAll = async () => {
+  const res = await http.post("/all-product/allID");
   return res.data;
 };
