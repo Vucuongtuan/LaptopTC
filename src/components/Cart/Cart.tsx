@@ -25,6 +25,7 @@ import Cookies from "js-cookie";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { IconButton } from "@mui/material";
 export default function Cart() {
   const router = useRouter();
   const { toast } = useToast();
@@ -71,15 +72,15 @@ export default function Cart() {
   };
   return (
     <Drawer>
-      <DrawerTrigger asChild>
-        <Button className="relative">
+      <DrawerTrigger asChild className="px-2">
+        <IconButton className="relative bg-black hover:bg-slate-800">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-6 h-6 text-white "
           >
             <path
               stroke-linecap="round"
@@ -88,13 +89,13 @@ export default function Cart() {
             />
           </svg>
           {dataCart.length > 0 ? (
-            <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-400">
+            <div className="absolute -top-1 -right-1 w-5 h-5 text-sm font-semibold rounded-full bg-red-400">
               {dataCart.length}
             </div>
           ) : (
             ""
           )}
-        </Button>
+        </IconButton>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
@@ -107,7 +108,7 @@ export default function Cart() {
           <div className="flow-root">
             <ul
               role="list"
-              className="-my-6 divide-y divide-gray-200 px-6 overflow-y-scroll h-[350px] "
+              className="-my-6 divide-y divide-gray-200 px-6 overflow-y-scroll sm:overflow-y-scroll h-[350px] "
             >
               {products.map((product: any) => {
                 const price = product.total.toString();
@@ -164,12 +165,14 @@ export default function Cart() {
             {stringSubTotal.replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ
           </p>
           <div className="mt-6">
-            <Button
-              onClick={handleNextPageThanhToan}
-              className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-            >
-              Đến trang thanh toán
-            </Button>
+            <DrawerClose asChild>
+              <Button
+                onClick={handleNextPageThanhToan}
+                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+              >
+                Đến trang thanh toán
+              </Button>
+            </DrawerClose>
           </div>
         </div>
       </DrawerContent>
