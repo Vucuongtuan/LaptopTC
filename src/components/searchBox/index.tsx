@@ -13,9 +13,12 @@ export default function SearchBox() {
     const getDataSearch = async () => {
       if (changeInput.trim() !== "") {
         const res = await getAllData();
-        const locData = res?.data.filter((product: any) =>
+        const locData = res?.data?.filter((product: any) =>
           product.name.toLowerCase().includes(changeInput.toLowerCase())
         );
+        console.log("====================================");
+        console.log(locData);
+        console.log("====================================");
         setListSearch(locData);
       } else {
         setListSearch([]);

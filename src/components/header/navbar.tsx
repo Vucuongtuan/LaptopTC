@@ -199,7 +199,7 @@ const NavBar = ({
   );
   return (
     <>
-      <div className="flex justify-between items-center h-[50px] sm:h-[60px] overflow-hidden">
+      <div className="flex justify-between items-center h-[50px] sm:h-[60px]">
         <div className="w-[200px] flex justify-center items-center sm:justify-start  ">
           <div className="  sm:text-left sm:text-xl    ">
             <Link href="/" className="h-full w-full  ">
