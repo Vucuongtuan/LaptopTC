@@ -28,7 +28,7 @@ export default function ProductLayout({
       return setPathName("/");
     }
   }, [pathname]);
-  const { data } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: [],
     queryFn: () => getBrand(pathName),
     enabled: !!pathName,

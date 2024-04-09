@@ -10,7 +10,7 @@ export interface IApiProduct {
   total: number;
   description: string;
   thumbnail: string[];
-  totalPurchases: number;
+  totalPurchases: string;
   product_brand: string;
   product_category: string;
   discount_percent: number;
@@ -42,7 +42,7 @@ export interface IApiMouse {
   total: number;
   guarantee: string;
   description: string;
-  totalPurchases: string | number;
+  totalPurchases: string;
   thumbnail: string[];
   details: {
     color: string;
@@ -72,7 +72,7 @@ export interface IApiKeyboard {
   total: number;
   thumbnail: string[];
   description: string;
-  totalPurchases: string | number;
+  totalPurchases: string;
   layout: string;
   switch_key: string;
   pin?: null | string;

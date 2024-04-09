@@ -1,4 +1,4 @@
-import { getAllData } from "@/api/product/index.api";
+import { getAllData, getAllDataByID } from "@/api/product/index.api";
 import BreadcrumdTheme from "@/components/breadcrumbTheme";
 import { Container } from "@mui/material";
 import type { Metadata } from "next";
@@ -17,7 +17,7 @@ export default async function DetailsLayout({
   children: React.ReactNode;
   params: { id: string };
 }) {
-  const { data } = await getAllData(params.id);
+  const { data } = await getAllDataByID(params.id);
 
   return (
     <Suspense fallback={<>asd</>}>

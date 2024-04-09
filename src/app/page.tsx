@@ -10,6 +10,7 @@ import ProductTrend from "@/components/productTrend";
 import { Container } from "@mui/material";
 import Image from "next/image";
 import { Suspense } from "react";
+
 export default async function Home() {
   const [dataLaptop, dataMouse, dataKeyboard]: [any, any, any] =
     await Promise.all([getDataLaptop(8), getDataMouse(8), getDataKeyboard(8)]);

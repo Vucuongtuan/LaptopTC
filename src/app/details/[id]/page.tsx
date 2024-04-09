@@ -1,4 +1,4 @@
-import { getAllData } from "@/api/product/index.api";
+import { getAllData, getAllDataByID } from "@/api/product/index.api";
 import { TButtonAddToCart } from "@/types/data/index.types";
 import React from "react";
 import CarouselProduct from "./carousel";
@@ -9,7 +9,7 @@ export default async function NameProduct({
 }: {
   params: { id: string };
 }) {
-  const { data } = await getAllData(params.id);
+  const { data } = await getAllDataByID(params.id);
 
   const item = data[0];
   const totalDis = (item.total * item?.discount_percent) / 100;

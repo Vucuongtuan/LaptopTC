@@ -82,17 +82,19 @@ const ContentListProduct = ({ name }: { name: string }) => {
   if (error !== null) {
     const { response, message }: any = error;
     if (response && response.status === 404) {
-      return <>Không có dữ liệu</>;
+      return (
+        <section className="shadow-xl flex justify-center items-center  h-[500px] w-full p-4 ">
+          <span>Không có dữ liệu</span>
+        </section>
+      );
     }
   }
   return (
-    <>
-      <section className="shadow-xl flex-grow h-full w-full p-4 grid grid-cols-3 grid-flow-row gap-3 md:grid-cols-3 sm:grid-cols-2">
-        {data?.data.map((data: any) => {
-          return <Card data={data} key={data?._id} />;
-        })}
-      </section>
-    </>
+    <section className="shadow-xl flex-grow h-full w-full p-4 grid grid-cols-3 grid-flow-row gap-3 md:grid-cols-3 sm:grid-cols-2">
+      {data?.data.map((data: any) => {
+        return <Card data={data} key={data?._id} />;
+      })}
+    </section>
   );
 };
 export default ContentListProduct;

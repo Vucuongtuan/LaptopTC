@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /checkLogin/
-Disallow: /thanhtoan/
-Sitemap: https://laptop-tc-rho.vercel.app/sitemap.xml

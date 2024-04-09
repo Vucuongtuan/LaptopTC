@@ -1,22 +1,18 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+"use client";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Laptop_TC | Chuyên cung cấp những sản phẩm laptop gaming , văn phòng",
-  description:
-    "Laptop_TC | Chuyên cung cấp những sản phẩm laptop gaming , văn phòng",
-};
+import SidebarAdmin from "@/components/sideBarADmin";
+import { useState } from "react";
 
 export default function AdminLoginLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <div className="m-0  flex justify-end w-full font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+      <SidebarAdmin sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <div className=" w-[79%] my-2 px-1">{children}</div>
+    </div>
   );
 }

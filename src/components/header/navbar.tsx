@@ -47,6 +47,7 @@ import SearchBox from "../searchBox";
 import LoginAndResigter from "../loginAndResigter";
 import Cart from "../Cart/Cart";
 import { IconButton } from "@mui/material";
+import Image from "next/image";
 
 const NavBar = ({
   menuLaptop,
@@ -198,10 +199,21 @@ const NavBar = ({
   );
   return (
     <>
-      <div className="flex justify-between items-center h-[50px] sm:h-[60px] ">
-        <div className="w-[200px] flex justify-center items-center sm:justify-start">
-          <div className=" ml-2 sm:text-left sm:text-xl">
-            <h1>LaptopTC</h1>
+      <div className="flex justify-between items-center h-[50px] sm:h-[60px] overflow-hidden">
+        <div className="w-[200px] flex justify-center items-center sm:justify-start  ">
+          <div className="  sm:text-left sm:text-xl    ">
+            <Link href="/" className="h-full w-full  ">
+              <Image
+                src="/logo.png"
+                alt="Laptop_TC"
+                height={400}
+                width={400}
+                className="h-full w-full object-cover"
+              />
+            </Link>
+            <Link href="/" className="hidden">
+              <h1>Laptop_TC</h1>
+            </Link>
           </div>
         </div>
         <div className="grow px-16 py-2 sm:hidden">
@@ -225,7 +237,7 @@ const NavBar = ({
           </div>
         </div>
       </div>
-      <div className=" h-[40px] flex items-end sm:hidden">
+      <div className=" h-[40px] flex items-end sm:hidden ">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>

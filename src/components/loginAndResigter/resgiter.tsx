@@ -82,7 +82,7 @@ export default function Resgiter() {
     } catch (error) {
       toast({
         title: `Đăng ký thất bại !!! (${error})`,
-        description: Date.now(),
+        description: "Kiểm tra otp hoặc email chưa đúng",
         variant: "destructive",
       });
     }

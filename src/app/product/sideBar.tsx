@@ -61,7 +61,6 @@ export const SideBar = ({ brand, params }: any) => {
   useEffect(() => {
     const brandNameParam = searchParams.get("hang");
     const idBrandParam = searchParams.get("id_brand");
-
     if (brandNameParam && idBrandParam) {
       const index = brand?.findIndex(
         (brand: any) =>
@@ -101,6 +100,7 @@ export const SideBar = ({ brand, params }: any) => {
           }`
     );
   };
+
   const uiMobile = () => (
     <div className="h-full w-full py-6 px-2 hidden sm:block md:block">
       <h3>Lọc theo hãng</h3>

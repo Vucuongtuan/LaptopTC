@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/header";
+
 import StoreProvider from "./StoreProvider";
-import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/toaster";
 import TanStackProviders from "@/components/tanstackProvider";
 import { Analytics } from "@vercel/analytics/react";
+import LayoutProvider from "./layoutProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -25,9 +25,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <TanStackProviders>
           <StoreProvider>
-            <Header />
-            {children}
-            <Footer />
+            <LayoutProvider>{children}</LayoutProvider>
           </StoreProvider>
         </TanStackProviders>
         <Toaster />

@@ -92,7 +92,15 @@ export const getBrand = async (name: string | unknown) => {
   });
   return data;
 };
-export const getAllData = async (id?: string) => {
+export const getAllData = async (page?: string) => {
+  let url = "/all-product";
+  if (page) {
+    url = `/all-product?page=${page}`;
+  }
+  let res = await http.get(url);
+  return res.data;
+};
+export const getAllDataByID = async (id?: string) => {
   const query = `/all-product?id=${id}`;
   let url;
   if (!id) {
@@ -102,6 +110,10 @@ export const getAllData = async (id?: string) => {
   }
   let res = await http.get(url);
   return res.data;
+};
+export const getRevenue = async () => {
+  const res = await http.get(`/all-product/total-revenue`);
+  return res;
 };
 export const getOTP = async (email: string) => {
   const res = await http.post(`/account/send-otp`, { email: email });
