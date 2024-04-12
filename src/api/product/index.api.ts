@@ -119,3 +119,19 @@ export const getOTP = async (email: string) => {
   const res = await http.post(`/account/send-otp`, { email: email });
   return res;
 };
+export const postThumbnails = async (thumbnail: any) => {
+  const formData = new FormData();
+  thumbnail.forEach((thumbnail: any, index: number) => {
+    formData.append("image", thumbnail);
+  });
+  const res = await http.post(`/upload`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return res;
+};
+export const postProductLaptop = async (data: any) => {
+  const res = await http.post(`/product/laptop`, data);
+  return res;
+};

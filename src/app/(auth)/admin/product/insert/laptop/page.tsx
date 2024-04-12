@@ -23,14 +23,12 @@ function InsertProduct() {
                 Thêm sản phẩm
               </li>
             </ol>
-            <h1 className="text-2xl py-2">Thêm sản phẩm</h1>
+            <h1 className="text-2xl py-2">Thêm sản phẩm Laptop</h1>
           </nav>
         </div>
       </nav>
       <div className="w-full px-2 h-auto">
-        <div className="shadow-md rounded-md h-auto">
-          <FormAdd />
-        </div>
+        <FormAdd />
       </div>
     </main>
   );

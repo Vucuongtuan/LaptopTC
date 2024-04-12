@@ -29,13 +29,13 @@ export default function SidebarAdmin({
   return (
     <aside className="max-w-62.5 w-[20%]   z-50 fixed left-0 h-[98vh] my-[1vh]  ml-2 block  flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0  p-0  shadow-md transition-transform duration-200  md:hidden sm:hidden">
       <div className="h-[100px] ">
-        <Image
+        {/* <Image
           src="/logo.jpg"
           alt="Laptop_TC"
           width={600}
           height={600}
           className="w-full h-full object-cover"
-        />
+        /> */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -85,10 +85,14 @@ export default function SidebarAdmin({
                 </Link>
                 <AccordionContent>
                   <Link
-                    className="py-3  shadow-soft-xl text-sm ease-nav-brand my-0  flex items-center whitespace-nowrap rounded-lg bg-white  font-semibold text-slate-700 transition-colors"
-                    href="/admin/product/insert"
+                    className={`py-3  shadow-soft-xl text-sm ease-nav-brand my-0  flex items-center whitespace-nowrap rounded-lg  font-semibold text-slate-700 transition-colors ${
+                      pathname === "/admin/product/insert/laptop"
+                        ? "bg-slate-200"
+                        : ""
+                    }`}
+                    href="/admin/product/insert/laptop"
                   >
-                    <div className="bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
+                    <div className="bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg  bg-center stroke-0 text-center xl:p-2.5">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

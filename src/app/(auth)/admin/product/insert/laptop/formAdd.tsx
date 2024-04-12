@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import {
   Select,
@@ -9,17 +9,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Autocomplete, Chip, Stack, TextField } from "@mui/material";
-
 import { z } from "zod";
-import { error } from "console";
+import Image from "next/image";
+import { ImageList, ImageListItem } from "@mui/material";
+import axios from "axios";
+import { postProductLaptop, postThumbnails } from "@/api/product/index.api";
+import { toast } from "@/components/ui/use-toast";
 
 const productSchema = z.object({
   name: z.string().min(1),
   brands: z.string().min(1),
   total: z.string().min(1),
   description: z.string().min(1),
-  totalPurchases: z.string().min(0),
+  totalPurchases: z.number().min(0).default(0),
+  thumbnails: z.array(z.any()),
   details: z.object({
     card_graphics: z.string().min(1),
     connector: z.array(z.string()),
@@ -47,6 +50,9 @@ export type FormData = z.infer<typeof productSchema>;
 export default function FormAdd() {
   const [connectors, setConnectors] = useState<string[]>([]);
   const [changeCollector, setChangeCollector] = useState<string>("");
+  const [changeThumbnail, setChangeThumbnail] = useState<any[]>([]);
+  const formRef = useRef<HTMLFormElement | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -56,35 +62,76 @@ export default function FormAdd() {
   } = useForm<FormData>({
     resolver: zodResolver(productSchema),
   });
+
   useEffect(() => {
     setValue("details.connector", connectors);
-  }, [connectors, setValue]);
+    setValue("totalPurchases", 0);
+    setValue("thumbnails", changeThumbnail);
+  }, [connectors, setValue, changeThumbnail]);
   const handleAddCollector = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setConnectors([...connectors, changeCollector]);
     // setValue("details.connector", [...connectors, changeCollector]);
   };
-  const onSubmit = async (data: FormData) => {
-    try {
-      // const response = await fetch("http://localhost:4000/product/laptop", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ data }),
-      // });
-      // const result = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error("Error:", error);
+  const handleUploadThumbnail = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const thumbnails = e.target.files;
+    if (thumbnails) {
+      const newThumbnails = Array.from(thumbnails);
+      setChangeThumbnail(newThumbnails);
     }
+  };
+  const onSubmit = async (data: FormData) => {
+    const resThumbnail = await postThumbnails(changeThumbnail);
+
+    if (resThumbnail.status === 200) {
+      const productResponse = await postProductLaptop({
+        name: data.name,
+        brands: data.brands,
+        total: data.total,
+        description: data.description,
+        totalPurchases: data.totalPurchases,
+        discount_percent: data.discount_percent,
+        inventory: data.inventory,
+        details: data.details,
+        thumbnails: resThumbnail,
+      });
+      if (productResponse.status === 200) {
+        toast({
+          title: "Thêm sản phẩm thành công",
+          description: data.name,
+        });
+      }
+    }
+    // const thumbnails = thumbnailResponse.images as any;
+    // const productResponse = await axios.post(
+    //   "http://localhost:4000/product/laptop",
+    //   {
+    //     name: data.name,
+    //     brands: data.brands,
+    //     total: data.total,
+    //     description: data.description,
+    //     totalPurchases: data.totalPurchases,
+    //     discount_percent: data.discount_percent,
+    //     inventory: data.inventory,
+    //     details: data.details,
+    //     thumbnails: uploadThumbnails.images,
+    //   }
+    // );
+    // const response = await axios.post(
+    //   "http://localhost:4000/product/laptop",
+    //   data
+    // );
+    // console.log("====================================");
+    // console.log(thumbnailResponse);
+    // console.log("====================================");
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h2 className="px-2 py-2 text-xl">Form thêm sản phẩm </h2>
       <div className="mb-4 flex">
-        <div className="w-2/4 px-2">
+        <div className="w-2/4 ">
           <label
             htmlFor="name"
             className="block text-sm font-medium text-gray-700"
@@ -103,82 +150,122 @@ export default function FormAdd() {
             </span>
           )}
         </div>
-        <div className="w-2/4 px-2">
+        <div className="w-1/4 ml-2">
           <label
-            htmlFor="brands"
+            htmlFor="description"
             className="block text-sm font-medium text-gray-700"
           >
-            Thương hiệu
+            Thumbnails
           </label>
           <input
-            type="text"
-            id="brands"
-            {...register("brands", { required: true })}
-            className="mt-1 p-2 w-full border rounded-md"
+            type="file"
+            id="thumbnails"
+            onChange={(e) => handleUploadThumbnail(e)}
+            className="mt-1 p-2 h-full w-full "
+            multiple
           />
-          {errors.brands && (
+          {errors.thumbnails && (
             <span className="text-red-500">
-              Thương hiệu không được để trống
+              Thumbnails sản phẩm không được để trống
             </span>
           )}
         </div>
       </div>
-      <div className="mb-4">
-        <label
-          htmlFor="description"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Description
-        </label>
-        <input
-          type="text"
-          id="description"
-          {...register("description", { required: true })}
-          className="mt-1 p-2 w-full border rounded-md"
-        />
-        {errors.name && (
-          <span className="text-red-500">
-            Description sản phẩm không được để trống
-          </span>
-        )}
+      <div className="mb-4 w-full flex">
+        <div className="w-2/4">
+          <label
+            htmlFor="description"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Description
+          </label>
+          <input
+            type="text"
+            id="description"
+            {...register("description", { required: true })}
+            className="mt-1 px-2 py-2 w-full border rounded-md"
+          />
+          {errors.name && (
+            <span className="text-red-500">
+              Description sản phẩm không được để trống
+            </span>
+          )}
+          <div className="w-full mt-2 ">
+            <div className="flex">
+              <div className="w-1/2">
+                <label
+                  htmlFor="brands"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Giá
+                </label>
+                <input
+                  type="text"
+                  id="total"
+                  {...register("total", { required: true })}
+                  className="mt-1 p-2 w-full border rounded-md"
+                />
+                {errors.brands && (
+                  <span className="text-red-500">Giá không được để trống</span>
+                )}
+              </div>
+              <div className="w-1/2 ml-2">
+                <label
+                  htmlFor="discount_percent"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Giảm giá
+                </label>
+                <input
+                  type="number"
+                  id="discount_percent"
+                  {...register("discount_percent")}
+                  className="mt-1 p-2 w-full border rounded-md"
+                />
+              </div>
+            </div>
+            <label
+              htmlFor="brands"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Thương hiệu
+            </label>
+            <input
+              type="text"
+              id="brands"
+              {...register("brands", { required: true })}
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+            {errors.brands && (
+              <span className="text-red-500">
+                Thương hiệu không được để trống
+              </span>
+            )}
+          </div>
+        </div>
+        <div className="h-[200px] w-2/4 border-2  rounded-md ml-2">
+          <ImageList variant="masonry" cols={5} gap={2}>
+            {changeThumbnail.map((thumbnail) => {
+              const previewThumbnail = URL.createObjectURL(thumbnail);
+              return (
+                <ImageListItem key={thumbnail}>
+                  <Image
+                    src={previewThumbnail}
+                    alt="upload Thumbnail"
+                    loading="lazy"
+                    height={150}
+                    width={150}
+                  />
+                </ImageListItem>
+              );
+            })}
+          </ImageList>
+        </div>
       </div>
+      <div className="mb-4 flex"></div>
       <div className="mb-4 flex">
-        <div className="px-2 w-2/4">
-          <label
-            htmlFor="brands"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Giá
-          </label>
-          <input
-            type="text"
-            id="total"
-            {...register("total", { required: true })}
-            className="mt-1 p-2 w-full border rounded-md"
-          />
-          {errors.brands && (
-            <span className="text-red-500">Giá không được để trống</span>
-          )}
-        </div>
-        <div className="px-2 w-2/4">
-          <label
-            htmlFor="discount_percent"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Giảm giá
-          </label>
-          <input
-            type="number"
-            id="discount_percent"
-            {...register("discount_percent", { required: true })}
-            className="mt-1 p-2 w-full border rounded-md"
-          />
-          {errors.brands && (
-            <span className="text-red-500">
-              Giảm giá không được để trống không giảm để số 0
-            </span>
-          )}
-        </div>
+        <div className="px-2 w-2/4"></div>
+        <div className="px-2 w-2/4"></div>
       </div>
       <div className="mb-4">
         <label
