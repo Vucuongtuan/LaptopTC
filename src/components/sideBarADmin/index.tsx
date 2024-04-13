@@ -69,28 +69,22 @@ export default function SidebarAdmin({
           <li className="mt-3 w-full">
             <Accordion type="single" collapsible className="  px-4">
               <AccordionItem value="item-1">
-                <Link
-                  className={`${
-                    pathname === "/admin/product/insert" ? "bg-slate-200" : ""
+                <AccordionTrigger
+                  className={`text-black text-md rounded-lg px-4  ${
+                    pathname === "/admin/product" ? "bg-slate-200" : ""
                   }`}
-                  href="/admin/product"
                 >
-                  <AccordionTrigger
-                    className={`text-black text-md rounded-lg px-4  ${
-                      pathname === "/admin/product" ? "bg-slate-200" : ""
-                    }`}
-                  >
-                    Sản phẩm
-                  </AccordionTrigger>
-                </Link>
+                  Sản phẩm
+                </AccordionTrigger>
                 <AccordionContent>
                   <Link
-                    className={`py-3  shadow-soft-xl text-sm ease-nav-brand my-0  flex items-center whitespace-nowrap rounded-lg  font-semibold text-slate-700 transition-colors ${
-                      pathname === "/admin/product/insert/laptop"
+                    className={`py-3 mb-2  shadow-soft-xl text-sm ease-nav-brand my-0  flex items-center whitespace-nowrap rounded-lg  font-semibold text-slate-700 transition-colors ${
+                      pathname === "/admin/product/laptop" ||
+                      pathname === "/admin/product/laptop/insert"
                         ? "bg-slate-200"
                         : ""
                     }`}
-                    href="/admin/product/insert/laptop"
+                    href="/admin/product/laptop"
                   >
                     <div className="bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg  bg-center stroke-0 text-center xl:p-2.5">
                       <svg
@@ -110,7 +104,37 @@ export default function SidebarAdmin({
                       </svg>
                     </div>
                     <span className="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">
-                      Thêm sản phẩm
+                      Laptop
+                    </span>
+                  </Link>
+                  <Link
+                    className={`py-3  shadow-soft-xl text-sm ease-nav-brand my-0  flex items-center whitespace-nowrap rounded-lg  font-semibold text-slate-700 transition-colors ${
+                      pathname === "/admin/product/banner" ||
+                      pathname === "/admin/product/banner/insert"
+                        ? "bg-slate-200"
+                        : ""
+                    }`}
+                    href="/admin/product/banner"
+                  >
+                    <div className="bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg  bg-center stroke-0 text-center xl:p-2.5">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        className="w-16 h-16"
+                      >
+                        <title>Trang chủ</title>
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                        />
+                      </svg>
+                    </div>
+                    <span className="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">
+                      Banner
                     </span>
                   </Link>
                 </AccordionContent>

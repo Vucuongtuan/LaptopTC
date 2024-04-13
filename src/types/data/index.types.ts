@@ -1,6 +1,7 @@
 export interface IApiBanner {
   _id: string;
-  thumbnail: string;
+  id: string;
+  thumbnail: any;
   description: string;
 }
 

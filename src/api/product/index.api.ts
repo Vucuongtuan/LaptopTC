@@ -1,5 +1,7 @@
 import http from "@/utils/axios";
 import all from "../../assets/image/all.jpg";
+import axios from "axios";
+import { IApiBanner } from "@/types/data/index.types";
 declare module "axios" {
   interface AxiosRequestConfig {
     next?: {
@@ -14,20 +16,30 @@ export const getDataBanner = async () => {
 
   return res.data;
 };
+
 export const getDataTrend = async () => {
   let res = await http.get("/all-product/");
   return res.data;
 };
-export const getDataLaptop = async (limit: number) => {
-  let res = await http.get(`/product/laptop?limit=${limit || 10}`);
+export const getDataLaptop = async (limit?: number, page?: number) => {
+  let url = "/product/laptop";
+  if (limit) url += "?limit=" + limit;
+  else if (limit && page) url += `?page=${page}&limit=${limit}`;
+  let res = await http.get(url);
   return res.data;
 };
-export const getDataMouse = async (limit: number) => {
-  let res = await http.get(`/product/mouse?limit=${limit || 10}`);
+export const getDataMouse = async (limit?: number, page?: number) => {
+  let url = "/product/mouse";
+  if (limit) url += "?limit=" + limit;
+  else if (limit && page) url += `?page=${page}&limit=${limit}`;
+  let res = await http.get(url);
   return res.data;
 };
-export const getDataKeyboard = async (limit: number) => {
-  let res = await http.get(`/product/keyboard?limit=${limit || 10}`);
+export const getDataKeyboard = async (limit?: number, page?: number) => {
+  let url = "/product/keyboard";
+  if (limit) url += "?limit=" + limit;
+  else if (limit && page) url += `?page=${page}&limit=${limit}`;
+  let res = await http.get(url);
   return res.data;
 };
 export const getDataToBrands = async (
@@ -132,6 +144,33 @@ export const postThumbnails = async (thumbnail: any) => {
   return res;
 };
 export const postProductLaptop = async (data: any) => {
-  const res = await http.post(`/product/laptop`, data);
+  const formData = new FormData();
+  formData.append("name", data.name);
+  formData.append("brands", data.brands);
+  formData.append("total", data.total);
+  formData.append("description", data.description);
+  formData.append("totalPurchases", data.totalPurchases);
+  formData.append("discount_percent", data.discount_percent);
+  formData.append("inventory", data.inventory);
+  formData.append("details", JSON.stringify(data.details));
+  formData.append("product_brand", data.product_brand);
+  formData.append("product_category", data.product_category);
+  formData.append("product_content", data.product_content);
+  data.thumbnails.forEach((thumbnail: any, index: number) => {
+    formData.append("thumbnail", thumbnail);
+  });
+  const res = await axios.post(
+    `http://localhost:4000/product/laptop`,
+    formData
+  );
+  return res;
+};
+export const postBanner = async (data: any) => {
+  const formBanner = new FormData();
+  formBanner.append("description", data.description);
+  formBanner.append("thumbnail", data.thumbnail);
+  formBanner.append("id", data.id);
+
+  let res = await axios.post(`http://localhost:4000/banner`, formBanner);
   return res;
 };

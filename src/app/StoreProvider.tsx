@@ -1,5 +1,5 @@
 "use client";
-import { setGlobalLoading } from "@/lib/features/globalLoadingSlice";
+import { setGlobalLoading } from "@/lib/features/auth";
 import store, { AppStore, RootState } from "@/lib/store";
 import { useEffect, useRef } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";

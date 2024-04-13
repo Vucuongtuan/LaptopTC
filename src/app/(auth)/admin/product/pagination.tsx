@@ -8,14 +8,17 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import React from "react";
 
 export default function PaginationProduct({ data }: { data: number }) {
   const navigation = useRouter();
+
+  const pathName = usePathname();
+
   const handlePagination = (page: number) => {
-    if (page !== 1) navigation.push(`/admin/product?page=${page}`);
+    navigation.push(`${pathName}?page=${page}`);
   };
 
   return (

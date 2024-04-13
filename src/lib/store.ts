@@ -1,15 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import globalLoadingSlice, {
-  setGlobalLoading,
-} from "./features/globalLoadingSlice";
 import checkCartLocal from "./features/checkCartLocal";
+import authLogin from "./features/auth";
 
 const store = () => {
   return configureStore({
     reducer: {
-      globalLoading: globalLoadingSlice,
       checkCartLocal: checkCartLocal,
+      auth: authLogin,
     },
   });
 };
