@@ -5,8 +5,12 @@ import DataTable from "../data-table";
 import { getAllData, getDataMouse } from "@/api/product/index.api";
 import PaginationProduct from "../pagination";
 
-export default async function AdminProduct() {
-  const data = await getDataMouse();
+export default async function AdminProduct({
+  searchParams,
+}: {
+  searchParams: { page: number };
+}) {
+  const data = await getDataMouse(10, searchParams.page);
   return (
     <main className="">
       <nav
@@ -29,16 +33,27 @@ export default async function AdminProduct() {
                 Sản phẩm
               </li>
             </ol>
-            <h6 className="mb-0 font-bold capitalize">Laptop</h6>
+            <h6 className="mb-0 font-bold capitalize">Chuột</h6>
           </nav>
         </div>
       </nav>
-      <div className="py-4 ">
-        <h2 className="px-10 pb-2 text-xl font-semibold">Tất cả sản phẩm</h2>
+      <div className="py-4 flex">
+        <h2 className="px-10 pb-2 grow text-xl font-semibold">Tất cả Chuột</h2>
+        <div
+          className="w-[200px]
+        "
+        >
+          <Link
+            href={"/admin/product/chuot/insert"}
+            className="float-left  bg-blue-500 text-black p-2 rounded-md hover:bg-blue-400 font-semibold"
+          >
+            Thêm mới
+          </Link>
+        </div>
       </div>
-      <section className="w-full h-auto">
+      <section className="w-full h-auto relative">
         <DataTable data={data} />
-        <PaginationProduct data={data.totalPages} />
+        <PaginationProduct data={data.totalPage} />
       </section>
     </main>
   );

@@ -42,6 +42,10 @@ export const getDataKeyboard = async (limit?: number, page?: number) => {
   let res = await http.get(url);
   return res.data;
 };
+export const getBrandAll = async () => {
+  const res = await http.get(`/brands`);
+  return res.data;
+};
 export const getDataToBrands = async (
   id?: string,
   name?: string,
@@ -165,6 +169,25 @@ export const postProductLaptop = async (data: any) => {
   );
   return res;
 };
+export const postProductMouse = async (data: any) => {
+  const formData = new FormData();
+  formData.append("name", data.name);
+  formData.append("brands", data.brands);
+  formData.append("total", data.total);
+  formData.append("description", data.description);
+  formData.append("totalPurchases", data.totalPurchases);
+  formData.append("discount_percent", data.discount_percent);
+  formData.append("inventory", data.inventory);
+  formData.append("details", JSON.stringify(data.details));
+  formData.append("product_brand", data.product_brand);
+  formData.append("product_category", data.product_category);
+  // formData.append("product_content", data.product_content);
+  data.thumbnails.forEach((thumbnail: any, index: number) => {
+    formData.append("thumbnail", thumbnail);
+  });
+  const res = await axios.post(`http://localhost:4000/product/mouse`, formData);
+  return res;
+};
 export const postBanner = async (data: any) => {
   const formBanner = new FormData();
   formBanner.append("description", data.description);
@@ -172,5 +195,9 @@ export const postBanner = async (data: any) => {
   formBanner.append("id", data.id);
 
   let res = await axios.post(`http://localhost:4000/banner`, formBanner);
+  return res;
+};
+export const getMouseType = async () => {
+  const res = await http.get(`/product_type/mouse`);
   return res;
 };

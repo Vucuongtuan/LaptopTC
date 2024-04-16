@@ -37,12 +37,23 @@ export default async function AdminSelectBannerPage({
                 Sản phẩm
               </li>
             </ol>
-            <h6 className="mb-0 font-bold capitalize">Laptop</h6>
+            <h6 className="mb-0 font-bold capitalize">Banner</h6>
           </nav>
         </div>
       </nav>
-      <div className="py-4 ">
-        <h2 className="px-10 pb-2 text-xl font-semibold">Tất cả sản phẩm</h2>
+      <div className="py-4 flex">
+        <h2 className="px-10 pb-2 text-xl font-semibold grow">Tất cả banner</h2>
+        <div
+          className="w-[200px]
+        "
+        >
+          <Link
+            href={"/admin/product/banner/insert"}
+            className="float-left  bg-blue-500 text-black p-2 rounded-md hover:bg-blue-400 font-semibold"
+          >
+            Thêm mới
+          </Link>
+        </div>
       </div>
       <section className="w-full h-auto">
         <DataTable data={data} />

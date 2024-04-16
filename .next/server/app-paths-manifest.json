@@ -1,7 +1,1 @@
-{
-  "/page": "app/page.js",
-  "/(auth)/admin/product/laptop/insert/page": "app/(auth)/admin/product/laptop/insert/page.js",
-  "/(auth)/admin/page": "app/(auth)/admin/page.js",
-  "/(auth)/admin/product/banner/page": "app/(auth)/admin/product/banner/page.js",
-  "/(auth)/admin/product/banner/insert/page": "app/(auth)/admin/product/banner/insert/page.js"
-}
+{}

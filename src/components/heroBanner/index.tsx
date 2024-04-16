@@ -6,9 +6,9 @@ import Link from "next/link";
 
 const HeroBanner = async () => {
   const data = await getDataBanner();
-  const slideData = data.slice(0, 5);
-  const bannerData: IApiBanner[] = data.slice(5, 7);
-  const miniBanner: IApiBanner[] = data.slice(7);
+  const slideData = data.slice(-5);
+  const bannerData: IApiBanner[] = data.slice(-7, -5);
+  const miniBanner: IApiBanner[] = data.slice(0, 4);
   return (
     <>
       <section className="h-auto w-full mt-2 md:h-[610px] sm:h-[320px] ">

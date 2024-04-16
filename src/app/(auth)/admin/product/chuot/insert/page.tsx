@@ -1,11 +1,10 @@
-import { getAllData } from "@/api/product/index.api";
 import React from "react";
 import FormAdd from "./formAdd";
 import { Session } from "inspector";
+import { getBrand, getMouseType } from "@/api/product/index.api";
 
 async function InsertMousePage() {
-  const { data } = await getAllData();
-
+  const [brand, type] = await Promise.all([getBrand("chuot"), getMouseType()]);
   return (
     <main className="h-auto">
       <nav
@@ -33,7 +32,7 @@ async function InsertMousePage() {
         </div>
       </nav>
       <section className="w-full px-2 h-auto">
-        <FormAdd all={data} />
+        <FormAdd brand={brand} type={type.data} />
       </section>
     </main>
   );
