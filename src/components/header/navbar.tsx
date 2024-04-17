@@ -48,6 +48,8 @@ import LoginAndResigter from "../loginAndResigter";
 import Cart from "../Cart/Cart";
 import { IconButton } from "@mui/material";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
 
 const NavBar = ({
   menuLaptop,
@@ -56,57 +58,57 @@ const NavBar = ({
   menuLaptop: IMenuItem[];
   menuMouse: IMenuItem[];
 }) => {
+  const auth = useSelector((state: RootState) => state.auth.authUser);
+  const userName = useSelector((state: RootState) => state.auth.userName);
+  console.log("====================================");
+  console.log("check:" + auth);
+  console.log("====================================");
   const LoginElement = () => {
-    if (typeof window !== "undefined") {
-      const checkToken = Cookies?.get("userToken");
-      const usernameLocal = localStorage?.getItem("userData") ?? "";
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger className="px-2">
-            <IconButton className="relative bg-black hover:bg-slate-800">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="w-6 h-6 text-white"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                />
-              </svg>
-              <span className="hidden">Người dùng</span>
-            </IconButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <span>
-              {checkToken ? (
-                <>
-                  <DropdownMenuLabel>
-                    Khách hàng : {usernameLocal}
-                  </DropdownMenuLabel>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Billing</DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => {
-                      Cookies.remove("userToken");
-                      window.location.reload();
-                    }}
-                  >
-                    Đăng xuất
-                  </DropdownMenuItem>
-                </>
-              ) : (
-                <div className="text-center">
-                  <LoginAndResigter />
-                </div>
-              )}
-            </span>
-            <DropdownMenuSeparator />
-            {/* <Accordion type="single" collapsible>
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger className="px-2">
+          <IconButton className="relative bg-black hover:bg-slate-800">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              className="w-6 h-6 text-white"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+              />
+            </svg>
+            <span className="hidden">Người dùng</span>
+          </IconButton>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <span>
+            {auth === true ? (
+              <>
+                <DropdownMenuLabel>Khách hàng : {userName}</DropdownMenuLabel>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Billing</DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    Cookies.remove("userToken");
+                    window.location.reload();
+                  }}
+                >
+                  Đăng xuất
+                </DropdownMenuItem>
+              </>
+            ) : (
+              <div className="text-center">
+                <LoginAndResigter />
+              </div>
+            )}
+          </span>
+          <DropdownMenuSeparator />
+          {/* <Accordion type="single" collapsible>
               <AccordionItem value="item-2">
                 <AccordionTrigger>Giao diện</AccordionTrigger>
                 <AccordionContent>
@@ -141,10 +143,9 @@ const NavBar = ({
                 </AccordionContent>
               </AccordionItem>
             </Accordion> */}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    }
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
   };
   const menuMobile = () => (
     <Sheet>
@@ -200,7 +201,7 @@ const NavBar = ({
   );
   return (
     <>
-      <div className="flex justify-between items-center h-[50px] sm:h-[60px]">
+      <div className="flex justify-between items-center h-[50px] sm:h-[60px] sm:overflow-hidden">
         <div className="w-[200px] flex justify-center items-center sm:justify-start  ">
           <div className="  sm:text-left sm:text-xl    ">
             <Link href="/" className="h-full w-full  ">

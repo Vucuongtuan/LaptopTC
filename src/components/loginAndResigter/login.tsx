@@ -18,6 +18,8 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import { SigninAccount } from "@/api/user/index.api";
+import { useDispatch } from "react-redux";
+import { setAuthUser, setUserName } from "@/lib/features/auth";
 
 const formSchema = z.object({
   email: z
@@ -34,6 +36,7 @@ const formSchema = z.object({
     .max(20, { message: "password không quá 20 ký tự" }),
 });
 export default function Login() {
+  const dispath = useDispatch();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,7 +47,13 @@ export default function Login() {
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     await SigninAccount(values.email, values.password).then((res: any) => {
-      Cookies.set("userToken", res.token);
+      Cookies.set("userToken", res.token, {
+        expires: 1,
+        // httpOnly: true,
+        secure: true,
+      });
+      dispath(setAuthUser(true));
+      dispath(setUserName(res.userName));
       localStorage.setItem(
         "userData",
         JSON.stringify({
