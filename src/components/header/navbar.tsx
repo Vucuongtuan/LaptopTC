@@ -65,7 +65,10 @@ const NavBar = ({
     return (
       <DropdownMenu>
         <DropdownMenuTrigger className="px-2">
-          <IconButton className="relative bg-black hover:bg-slate-800">
+          <IconButton
+            className="relative bg-black hover:bg-slate-800"
+            aria-label="Khách hàng"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -148,7 +151,10 @@ const NavBar = ({
   const menuMobile = () => (
     <Sheet>
       <SheetTrigger asChild className="px-2">
-        <IconButton className="relative bg-black hover:bg-slate-800">
+        <IconButton
+          className="relative bg-black hover:bg-slate-800"
+          aria-label="Giỏ hàng"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

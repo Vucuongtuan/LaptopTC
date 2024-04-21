@@ -42,14 +42,14 @@ const Card = ({ data }: { data: IApiProduct | IApiKeyboard | IApiMouse }) => {
             {data.name}
           </h2>
           {renderNewTag(data.create_date) && (
-            <div className="bg-red-500 text-white rounded-2xl p-[1px] text-sm absolute top-2 right-2">
+            <div className="bg-[#A81010] text-white rounded-full p-[4px] text-sm absolute top-2 right-2">
               NEW
             </div>
           )}
 
-          <p className="text-red-500 font-medium flex flex-col">
+          <p className="text-[#B30000] font-medium flex flex-col">
             <div className="text-[0.7rem] sm:text-[0.6rem]">
-              <del className="text-[#c7c8c9] ">
+              <del className="text-[#595959] ">
                 {newTotal.replace(/\B(?=(\d{3})+(?!\d))/g, ".")} VND
               </del>
               <span className="ml-4">{"-" + data?.discount_percent + "%"}</span>

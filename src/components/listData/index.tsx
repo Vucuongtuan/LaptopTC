@@ -13,7 +13,7 @@ export default function ListData({ data, name }: ListProductProps) {
         <h2 className="h-full font-semibold  flex items-center">
           <Link
             href="#"
-            className="text-yellow-300 text-[2rem] mr-2 sm:text-[0.8rem]"
+            className="text-[#b30000] text-[2rem] mr-2 sm:text-[0.8rem]"
           >
             {name}
           </Link>{" "}

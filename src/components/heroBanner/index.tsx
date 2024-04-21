@@ -11,8 +11,8 @@ const HeroBanner = async () => {
   const miniBanner: IApiBanner[] = data.slice(0, 4);
   return (
     <>
-      <section className="h-auto w-full mt-2 md:h-[650px] sm:h-[320px] ">
-        <div className="w-full h-[390px]  grid grid-cols-6 grid-rows-2 md:grid-cols-1 md:grid-rows-3 md:h-[650px] sm:h-[290px] sm:grid-cols-1 sm:grid-rows-3">
+      <section className="h-auto w-full mt-2 mb-2 md:h-[650px] sm:h-[320px] ">
+        <div className="w-full h-[390px]  grid grid-cols-6 grid-rows-2 md:grid-cols-1 md:grid-rows-3 md:h-[650px] sm:h-[320px] sm:grid-cols-1 sm:grid-rows-3">
           <div className="col-span-4 row-span-2 md:col-span-1 overflow-hidden rounded-md  h-full w-full ">
             <Slide data={slideData} />
           </div>

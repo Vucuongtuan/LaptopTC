@@ -35,6 +35,7 @@ export default function SearchBox() {
         onFocus={() => setActionDropdown(true)}
         onBlur={() => setActionDropdown(false)}
         onChange={(e) => setChangeInput(e.target.value)}
+        aria-label="Search"
       />
       {actionDropdown && (
         <div className=" h-auto max-h-[500px] overflow-y-scroll w-full absolute top-11 rounded-md z-50  bg-white">

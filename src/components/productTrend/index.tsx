@@ -10,11 +10,11 @@ const ProductTrend = async () => {
 
   return (
     <section className="h-auto w-full flex flex-col    rounded-md mt-4 sm:-mt-4 overflow-hidden">
-      <div className="py-4 px-1 bg-red-500">
+      <div className="py-4 px-1 ">
         <h2 className="h-full font-semibold  flex items-center">
           <Link
             href="#"
-            className="text-yellow-300 text-[2rem] mr-2 sm:text-[1.1rem]"
+            className="text-[#B30000] text-[2rem] mr-2 sm:text-[1.1rem]"
           >
             Sản phẩm bán chạy
           </Link>{" "}
