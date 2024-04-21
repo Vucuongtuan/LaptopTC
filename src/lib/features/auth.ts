@@ -25,7 +25,9 @@ export const authLogin = createSlice({
       typeof window !== "undefined" ? Cookies.get("userToken") && true : false,
     userName:
       typeof window !== "undefined"
-        ? JSON.parse(localStorage.getItem("userData") ?? "").userName
+        ? (localStorage.getItem("userData") &&
+            JSON.parse(localStorage.getItem("userData")!).userName) ||
+          ""
         : "",
   } as SliceState,
   reducers: {
