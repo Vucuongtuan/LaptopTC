@@ -45,6 +45,7 @@ export default function FormAdd({ all }: FormAddBanner) {
     handleSubmit,
     setValue,
     control,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(bannerSchema),
@@ -69,9 +70,7 @@ export default function FormAdd({ all }: FormAddBanner) {
       description: data.description,
       thumbnail: data.thumbnail[0],
     });
-    console.log("====================================");
-    console.log(res);
-    console.log("====================================");
+
     if (res.status === 200) {
       toast({
         title: "Thêm mới banner thành công",
@@ -79,14 +78,17 @@ export default function FormAdd({ all }: FormAddBanner) {
           <>
             <h3>{data.description}</h3>
             <Image
-              src={data.thumbnail[0]}
+              src={URL.createObjectURL(data.thumbnail[0])}
               alt={data.description}
               height={150}
               width={150}
+              
             />
           </>
         ),
       });
+
+      reset();
     } else if (res.status === 500) {
       toast({
         title: "Thêm mới banner thất bại",

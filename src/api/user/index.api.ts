@@ -22,7 +22,7 @@ export const SigninAccount = async (
   email: string,
   password: string | number
 ) => {
-  const res = await http.post("/account/signin", { email, password });
+  const res = await http.post("/account/login", { email, password });
   return res.data;
 };
 

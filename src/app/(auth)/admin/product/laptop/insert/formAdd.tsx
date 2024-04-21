@@ -22,29 +22,29 @@ const productSchema = z.object({
   brands: z.string().min(1),
   total: z.string().min(1),
   description: z.string().min(1),
-  totalPurchases: z.number().min(0).default(0),
+  totalPurchases: z.number().default(0),
   thumbnails: z.array(z.any()),
   details: z.object({
-    card_graphics: z.string().min(1),
+    card_graphics: z.string(),
     connector: z.array(z.string()),
-    cpu: z.string().min(1),
-    hard_drive: z.string().min(1),
-    pin: z.string().min(1),
-    ram: z.string().min(1),
-    screen: z.string().min(1),
-    audio: z.string().min(1),
-    cam: z.string().min(1),
-    keyboard: z.string().min(1),
-    size: z.string().min(1),
-    system: z.string().min(1),
-    weight: z.string().min(1),
-    wifi_bluetooth: z.string().min(1),
+    cpu: z.string(),
+    hard_drive: z.string(),
+    pin: z.string(),
+    ram: z.string(),
+    screen: z.string(),
+    audio: z.string(),
+    cam: z.string(),
+    keyboard: z.string(),
+    size: z.string(),
+    system: z.string(),
+    weight: z.string(),
+    wifi_bluetooth: z.string(),
   }),
   discount_percent: z.string().min(0).max(100),
   inventory: z.string().min(0),
   product_category: z.string().min(1).optional(),
   product_brand: z.string().min(1).optional(),
-  product_content: z.string().min(1).optional(),
+  product_content: z.string().optional(),
 });
 export type FormData = z.infer<typeof productSchema>;
 
@@ -62,11 +62,14 @@ export default function FormAdd() {
     handleSubmit,
     setValue,
     control,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(productSchema),
   });
-
+  console.log("====================================");
+  console.log("error :", errors);
+  console.log("====================================");
   useEffect(() => {
     setValue("details.connector", connectors);
     setValue("totalPurchases", 0);
@@ -108,7 +111,19 @@ export default function FormAdd() {
     if (productResponse.status === 200) {
       toast({
         title: "Thêm mới thành công",
+        description: (
+          <>
+            <h3>{data.description}</h3>
+            <Image
+              src={URL.createObjectURL(data.thumbnails[0])}
+              alt={data.description}
+              height={150}
+              width={150}
+            />
+          </>
+        ),
       });
+      reset();
     } else if (productResponse.status === 500) {
       toast({
         title: "Thêm mới Thất bại",
@@ -306,7 +321,7 @@ export default function FormAdd() {
           {errors.product_brand && <span>This field is required</span>}
         </div>
         <div className="px-2 w-2/4">
-          <label htmlFor="dropdown">Chọn bài post sản phẩm:</label>
+          <label htmlFor="dropdown">Chọn loại sản phẩm:</label>
           <Select onValueChange={(e) => setchangeType(e)}>
             <SelectTrigger className="w-full mt-1">
               <SelectValue placeholder="Chọn" />

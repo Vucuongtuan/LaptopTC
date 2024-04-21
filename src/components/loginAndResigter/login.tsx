@@ -50,7 +50,7 @@ export default function Login() {
       Cookies.set("userToken", res.token, {
         expires: 1,
         // httpOnly: true,
-        secure: true,
+        // secure: true,
       });
       dispath(setAuthUser(true));
       dispath(setUserName(res.userName));

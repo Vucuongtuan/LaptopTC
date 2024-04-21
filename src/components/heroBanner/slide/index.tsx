@@ -10,7 +10,7 @@ import Image from "next/image";
 const Slide = ({ data }: { data: IApiBanner[] }) => {
   return (
     <Carousel
-      className="w-full h-full rounded-md relative 
+      className="w-full h-full rounded-md relative  
     "
     >
       <CarouselContent>

@@ -11,12 +11,12 @@ const HeroBanner = async () => {
   const miniBanner: IApiBanner[] = data.slice(0, 4);
   return (
     <>
-      <section className="h-auto w-full mt-2 md:h-[610px] sm:h-[320px] ">
-        <div className="w-full h-[390px]  grid grid-cols-6 grid-rows-2 md:grid-cols-1 md:grid-rows-3 md:h-[550px] sm:h-[290px] sm:grid-cols-1 sm:grid-rows-3">
-          <div className="col-span-4 row-span-2 md:col-span-1 overflow-hidden rounded-md  h-full w-full">
+      <section className="h-auto w-full mt-2 md:h-[650px] sm:h-[320px] ">
+        <div className="w-full h-[390px]  grid grid-cols-6 grid-rows-2 md:grid-cols-1 md:grid-rows-3 md:h-[650px] sm:h-[290px] sm:grid-cols-1 sm:grid-rows-3">
+          <div className="col-span-4 row-span-2 md:col-span-1 overflow-hidden rounded-md  h-full w-full ">
             <Slide data={slideData} />
           </div>
-          <div className="col-span-2 row-span-2 ml-2 sm:ml-0 h-full flex flex-col relative md:flex-row  md:mt-2 sm:mt-2  sm:pl-0  sm:flex-row  ">
+          <div className="col-span-2 row-span-2  sm:ml-0 h-full flex flex-col relative ml-2 md:ml-0 md:gap-2 md:flex-row  md:mt-2 sm:mt-2  sm:pl-0  sm:flex-row  ">
             {bannerData?.map((item) => (
               <Link
                 href="#"

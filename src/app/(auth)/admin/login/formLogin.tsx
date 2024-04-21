@@ -1,13 +1,16 @@
 "use client";
 import { LoginAdmin } from "@/api/admin/index.api";
+import LoadingPage from "@/components/loadingElement";
 import { toast, useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CircularProgress, IconButton } from "@mui/material";
-import { headers } from "next/headers";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { z } from "zod";
+import Cookies from "js-cookie";
+import { setAdminName, setAuthAdmin } from "@/lib/features/auth";
 
 const schema = z.object({
   email: z.string().email("Email không hợp lệ").min(1, "Email là bắt buộc"),
@@ -18,6 +21,7 @@ type FormValues = z.infer<typeof schema>;
 
 const AdminLoginForm: React.FC = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { toast } = useToast();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -34,26 +38,55 @@ const AdminLoginForm: React.FC = () => {
   });
 
   const onSubmit = async (data: FormValues) => {
-    setLoading(true);
-    const res = await LoginAdmin(data);
-    setLoading(false);
-    if (res?.response?.status === 500) {
-      toast({
-        variant: "destructive",
-        title: "Đăng nhập thất bại",
-        description: "Kiểm tra lại email và password hoặc thử lại sau",
-      });
-    } else {
-      toast({
-        title: "Đăng nhập thành công",
-        description: `Xin chào , ${res?.username}`,
-      });
-      setTimeout(() => {
-        router.push("/admin");
-      }, 3000);
+    try {
+      setLoading(true);
+      const res = await LoginAdmin(data);
+
+      if (res?.response?.status === 500) {
+        toast({
+          variant: "destructive",
+          title: "Đăng nhập thất bại",
+          description: "Kiểm tra lại email và password hoặc thử lại sau",
+        });
+      } else if (res?.response?.status === 404) {
+        toast({
+          variant: "destructive",
+          title: "Đăng nhập thất bại",
+          description: "Tài khoản không tồn tại",
+        });
+      } else {
+        toast({
+          title: "Đăng nhập thành công",
+          description: `Xin chào , ${res?.username}`,
+        });
+
+        setTimeout(() => {
+          Cookies.set("adminToken", res.data.token, {
+            expires: 1,
+            // httpOnly: true,
+            // secure: true,
+          });
+          dispatch(setAuthAdmin(true));
+          dispatch(setAdminName(res.data.adminName));
+          localStorage.setItem(
+            "adminData",
+            JSON.stringify({
+              adminName: res.data.username,
+              email: res.data.email,
+              adminId: res.data.adminId,
+            })
+          );
+          router.push("/admin");
+        }, 2000);
+      }
+    } catch (err) {
+    } finally {
+      setLoading(false);
     }
   };
-
+  if (loading === true) {
+    return <LoadingPage />;
+  }
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

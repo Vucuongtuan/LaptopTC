@@ -26,6 +26,7 @@ export const getDataLaptop = async (limit?: number, page?: number) => {
   if (limit) url += "?limit=" + limit;
   else if (limit && page) url += `?page=${page}&limit=${limit}`;
   let res = await http.get(url);
+  // let res = await axios.get("http://localhost:4000/product/laptop");
   return res.data;
 };
 export const getDataMouse = async (limit?: number, page?: number) => {
@@ -197,7 +198,51 @@ export const postBanner = async (data: any) => {
   let res = await axios.post(`http://localhost:4000/banner`, formBanner);
   return res;
 };
+
+export const postKeyboard = async (data: any) => {
+  const num = "0" as string;
+  const formKeyboard = new FormData();
+  formKeyboard.append("description", data.description);
+  formKeyboard.append("name", data.name);
+  formKeyboard.append("thumbnail", data.thumbnail);
+  formKeyboard.append("total", data.total);
+  formKeyboard.append("layout", data.layout);
+  formKeyboard.append("switch_key", data.switch_key);
+  formKeyboard.append("pin", data.pin);
+  formKeyboard.append("personal", data.personal);
+  formKeyboard.append("foam", data.foam);
+  formKeyboard.append("weight", data.weight);
+  formKeyboard.append("size", data.size);
+  formKeyboard.append("connector", data.connector);
+  formKeyboard.append("configuration", data.configuration);
+  formKeyboard.append("keycap", data.keycap);
+  formKeyboard.append("support", data.support);
+  formKeyboard.append("totalPurchases", num);
+  formKeyboard.append("accessory", data.accessory);
+  formKeyboard.append("software", data.software);
+  formKeyboard.append("compatibility", data.compatibility);
+  formKeyboard.append("discount_percent", data.discount_percent);
+  formKeyboard.append("inventory", data.inventory);
+  formKeyboard.append("product_type_keybourd", data.product_type_keybourd);
+  formKeyboard.append("product_brand", data.product_brand);
+  formKeyboard.append("brands", data.brands);
+
+  let res = await axios.post(
+    `http://localhost:4000/product/keyboard`,
+    formKeyboard
+  );
+  return res;
+};
+export const getAllPost = async () => {};
 export const getMouseType = async () => {
   const res = await http.get(`/product_type/mouse`);
+  return res;
+};
+export const getKeyboardType = async () => {
+  const res = await http.get(`/product_type/keyboard`);
+  return res;
+};
+export const deleteBanner = async (id: string) => {
+  const res = await http.delete(`/banner/${id}`);
   return res;
 };

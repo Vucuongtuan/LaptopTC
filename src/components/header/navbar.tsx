@@ -60,9 +60,7 @@ const NavBar = ({
 }) => {
   const auth = useSelector((state: RootState) => state.auth.authUser);
   const userName = useSelector((state: RootState) => state.auth.userName);
-  console.log("====================================");
-  console.log("check:" + auth);
-  console.log("====================================");
+
   const LoginElement = () => {
     return (
       <DropdownMenu>

@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { usePathname } from "next/navigation";

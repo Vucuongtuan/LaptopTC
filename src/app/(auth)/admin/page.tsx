@@ -5,7 +5,7 @@ import { IApiKeyboard, IApiMouse, IApiProduct } from "@/types/data/index.types";
 import Image from "next/image";
 import React from "react";
 
-export default async function AdminPage() {
+export default async function DashboardAdminPage() {
   const { data } = await getRevenue();
   const currentTotal = parseFloat(data.total[data.total.length - 1]);
   const previousTotal = parseFloat(data.total[data.total.length - 2]);

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import SidebarLinkGroup from "./SidebarLinkGroup";
+import SidebarLinkGroup from "./SidebarAdminNav";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import {
@@ -35,7 +35,7 @@ export default function SidebarAdmin({
   );
 
   return (
-    <aside className="max-w-62.5 w-[20%]   z-50 fixed left-0 h-[98vh] my-[1vh]  ml-2 block  flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0  p-0  shadow-md transition-transform duration-200  md:hidden sm:hidden">
+    <aside className="max-w-62.5 w-[255px]   z-50 fixed left-0 h-full   ml-2 block  flex-wrap items-center justify-between overflow-y-auto  border-0  p-0  shadow-md transition-transform duration-200  md:hidden sm:hidden">
       <div className="h-[100px] ">
         {/* <Image
           src="/logo.jpg"
@@ -60,16 +60,16 @@ export default function SidebarAdmin({
         </svg>
       </div>
       <hr className="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
-      <div className="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full py-2">
-        <ul className="flex flex-col pl-0 mb-0">
+      <div className="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full py-1">
+        <ul className="flex flex-col ">
           <li className={`mt-0.5 w-full `}>
             <Link
-              className={`py-4 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg  px-4 font-semibold text-slate-700 transition-colors ${
+              className={`py-4 shadow-soft-xl text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg  px-4 font-semibold text-slate-700 transition-colors ${
                 pathname === "/admin" ? "bg-slate-200" : ""
               }`}
               href="/admin"
             >
-              <span className=" duration-300 opacity-100 pointer-events-none ease-soft font-medium text-black text-md">
+              <span className=" duration-300 opacity-100 pointer-events-none ease-soft font-medium text-black text-[15px]">
                 Trang chủ
               </span>
             </Link>
@@ -78,7 +78,7 @@ export default function SidebarAdmin({
             <Accordion type="single" collapsible className="  px-4">
               <AccordionItem value="item-1">
                 <AccordionTrigger
-                  className={`text-black text-md rounded-lg px-4   ${
+                  className={`text-black text-[15px] rounded-lg px-2   ${
                     pathname === "/admin/product" ? "bg-slate-200" : ""
                   }`}
                 >
@@ -100,25 +100,38 @@ export default function SidebarAdmin({
                   </Link>
                   <Link
                     className={`py-3  mb-2  shadow-soft-xl text-sm ease-nav-brand my-0  flex items-center whitespace-nowrap rounded-lg  font-semibold text-slate-700 transition-colors ${
-                      pathname === "/admin/product/chuot" ||
-                      pathname === "/admin/product/chuot/insert"
+                      pathname === "/admin//product/chuot" ||
+                      pathname === "/admin//product/chuot/insert"
                         ? "bg-slate-200"
                         : ""
                     }`}
-                    href="/admin/product/chuot"
+                    href="/admin//product/chuot"
                   >
                     <span className="ml-1 pl-3 duration-300 opacity-100 pointer-events-none ease-soft">
                       Chuột
                     </span>
                   </Link>
                   <Link
-                    className={`py-3 mb-2  shadow-soft-xl text-sm ease-nav-brand my-0  flex items-center whitespace-nowrap rounded-lg  font-semibold text-slate-700 transition-colors ${
-                      pathname === "/admin/product/banner" ||
-                      pathname === "/admin/product/banner/insert"
+                    className={`py-3  mb-2  shadow-soft-xl text-sm ease-nav-brand my-0  flex items-center whitespace-nowrap rounded-lg  font-semibold text-slate-700 transition-colors ${
+                      pathname === "/admin//product/banphim" ||
+                      pathname === "/admin//product/banphim/insert"
                         ? "bg-slate-200"
                         : ""
                     }`}
-                    href="/admin/product/banner"
+                    href="/admin//product/banphim"
+                  >
+                    <span className="ml-1 pl-3 duration-300 opacity-100 pointer-events-none ease-soft">
+                      Bàn phím
+                    </span>
+                  </Link>
+                  <Link
+                    className={`py-3 mb-2  shadow-soft-xl text-sm ease-nav-brand my-0  flex items-center whitespace-nowrap rounded-lg  font-semibold text-slate-700 transition-colors ${
+                      pathname === "/admin//product/banner" ||
+                      pathname === "/admin//product/banner/insert"
+                        ? "bg-slate-200"
+                        : ""
+                    }`}
+                    href="/admin//product/banner"
                   >
                     <span className="ml-1 pl-3 duration-300 opacity-100 pointer-events-none ease-soft">
                       Banner
@@ -127,6 +140,18 @@ export default function SidebarAdmin({
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
+          </li>
+          <li className="mt-3 w-full">
+            <Link
+              className={`py-4 shadow-soft-xl text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg  px-4 font-semibold text-slate-700 transition-colors ${
+                pathname === "/admin/post" ? "bg-slate-200" : ""
+              }`}
+              href="/admin/post"
+            >
+              <span className=" duration-300 opacity-100 pointer-events-none ease-soft font-medium text-black text-[15px]">
+                Bài viết
+              </span>
+            </Link>
           </li>
         </ul>
       </div>

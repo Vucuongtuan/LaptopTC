@@ -5,7 +5,6 @@ import { Session } from "inspector";
 
 async function InsertBannerPage() {
   const { data } = await getAllData();
-
   return (
     <main className="h-auto">
       <nav

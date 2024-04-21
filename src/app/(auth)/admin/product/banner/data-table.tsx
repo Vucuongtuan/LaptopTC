@@ -1,5 +1,5 @@
 "use client";
-import { getAllData } from "@/api/product/index.api";
+import { deleteBanner, getAllData } from "@/api/product/index.api";
 import { Button } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
@@ -31,11 +31,25 @@ type DataTableProps = {
 export default function DataTable({ data }: DataTableProps) {
   const { toast } = useToast();
 
-  const handleDeleteProduct = async (id: string) => {
-    toast({
-      title: "Xóa thành công",
-      description: `Sản phẩm có ID : ${id}`,
-    });
+  const handleDeleteProduct = async (id: string, name: string) => {
+    try {
+      const res = await deleteBanner(id);
+      console.log("====================================");
+      console.log(res);
+      console.log("====================================");
+      //  if(res?.response?.status === 200){
+
+      //  }
+      toast({
+        title: "Xóa thành công",
+        description: `${name}(${id}) đã được xóa thành công`,
+      });
+    } catch (err) {
+      toast({
+        title: "Xóa thất bại",
+        description: `Xóa sản phẩm ${name} thất bại vui lòng thử lại sau`,
+      });
+    }
   };
 
   return (
@@ -130,7 +144,9 @@ export default function DataTable({ data }: DataTableProps) {
                     <AlertDialogFooter>
                       <AlertDialogCancel>Thoát</AlertDialogCancel>
                       <AlertDialogAction
-                        onClick={() => handleDeleteProduct(product._id)}
+                        onClick={() =>
+                          handleDeleteProduct(product._id, product.name)
+                        }
                       >
                         Xóa
                       </AlertDialogAction>

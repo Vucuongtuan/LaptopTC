@@ -1,23 +1,8 @@
 {
-  "/_not-found": "app/_not-found.js",
-  "/checkLogin/page": "app/checkLogin/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/opengraph-image.jpg/route": "app/opengraph-image.jpg/route.js",
-  "/page": "app/page.js",
-  "/profile/page": "app/profile/page.js",
-  "/sitemap.xml/route": "app/sitemap.xml/route.js",
-  "/robots.txt/route": "app/robots.txt/route.js",
-  "/thanhtoan/page": "app/thanhtoan/page.js",
-  "/(auth)/admin/login/page": "app/(auth)/admin/login/page.js",
-  "/(auth)/admin/product/chuot/insert/page": "app/(auth)/admin/product/chuot/insert/page.js",
-  "/(auth)/admin/product/banner/insert/page": "app/(auth)/admin/product/banner/insert/page.js",
-  "/(auth)/admin/product/banner/page": "app/(auth)/admin/product/banner/page.js",
+  "/not-found": "app/not-found.js",
   "/(auth)/admin/page": "app/(auth)/admin/page.js",
-  "/(auth)/admin/product/chuot/page": "app/(auth)/admin/product/chuot/page.js",
+  "/(auth)/admin/product/banner/page": "app/(auth)/admin/product/banner/page.js",
+  "/(auth)/admin/product/banner/insert/page": "app/(auth)/admin/product/banner/insert/page.js",
   "/details/[id]/page": "app/details/[id]/page.js",
-  "/product/banphim/page": "app/product/banphim/page.js",
-  "/(auth)/admin/product/laptop/insert/page": "app/(auth)/admin/product/laptop/insert/page.js",
-  "/product/laptop/page": "app/product/laptop/page.js",
-  "/(auth)/admin/product/laptop/page": "app/(auth)/admin/product/laptop/page.js",
-  "/product/chuot/page": "app/product/chuot/page.js"
+  "/(auth)/admin/post/page": "app/(auth)/admin/post/page.js"
 }

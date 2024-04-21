@@ -9,8 +9,18 @@ interface SliceState {
 export const authLogin = createSlice({
   name: "AuthModal",
   initialState: {
-    authAdmin: false,
-    adminName: "",
+    authAdmin:
+      typeof window !== "undefined"
+        ? Cookies.get("adminToken")
+          ? true
+          : false
+        : false,
+    adminName:
+      typeof window !== "undefined"
+        ? (localStorage.getItem("adminData") &&
+            JSON.parse(localStorage.getItem("adminData")!).adminName) ||
+          ""
+        : "",
     authUser:
       typeof window !== "undefined" ? Cookies.get("userToken") && true : false,
     userName:
@@ -34,6 +44,7 @@ export const authLogin = createSlice({
   },
 });
 
-export const { setAuthUser, setUserName } = authLogin.actions;
+export const { setAuthAdmin, setAdminName, setAuthUser, setUserName } =
+  authLogin.actions;
 
 export default authLogin.reducer;
