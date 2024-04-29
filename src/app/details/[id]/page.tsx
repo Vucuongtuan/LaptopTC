@@ -21,13 +21,13 @@ export default async function NameProduct({
     description: item.description,
   };
   return (
-    <div className="h-auto sm:h-auto  text-black  rounded-md">
-      <section className="w-full h-[500px] flex md:flex-col sm:flex-col md:h-[700px] sm:h-[650px]">
-        <div className="w-[50%] md:w-full md:h-[400px] sm:w-full sm:h-[500px]">
+    <div className="h-auto sm:h-auto  bg-white text-black  rounded-md">
+      <section className="w-full h-[500px] flex  md:flex-col sm:flex-col md:h-[700px] sm:h-[550px] p-4">
+        <div className="w-[50%] h-full md:w-full md:h-[500px] sm:w-full sm:h-[300px] shadow-md sm:shadow-none ">
           <CarouselProduct item={item} />
         </div>
-        <div className="flex flex-col ml-4 px-4 w-[50%] sm:ml-0 sm:mt-2 md:ml-0 md:mt-2 bg-white rounded-md">
-          <h1 className="text-2xl font-semibold">{item?.name}</h1>
+        <div className="flex flex-col ml-4 px-4 w-[50%] md:w-full md:py-2  sm:w-full sm:py-2 sm:ml-0 sm:mt-2 md:ml-0 md:mt-2 sm:px-0 sm:shadow-none md:px-0 md:shadow-none shadow-md  rounded-md">
+          <h1 className="text-2xl font-semibold sm:text-xl">{item?.name}</h1>
           <div className="flex items-center py-4">
             <div className="w-10 h-6 mr-2 rounded-md text-sm text-center border-2  border-yellow-400">
               {"-" + item.discount_percent + "%"}
@@ -36,7 +36,7 @@ export default async function NameProduct({
               {item?.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
                 " ₫"}
             </del>
-            <span className=" ml-4 text-3xl font-semibold text-red-600 pt-0">
+            <span className=" ml-4 text-3xl sm:text-2xl font-semibold text-red-600 pt-0">
               {(item.total - totalDis)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " ₫"}

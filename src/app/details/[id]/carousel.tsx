@@ -14,7 +14,7 @@ type CarouselProps = {
 };
 export default function CarouselProduct({ item }: CarouselProps) {
   return (
-    <div className="bg-white w-full rounded-md overflow-hidden px-12 py-4">
+    <div className=" w-full rounded-md  h-full px-14 py-12 md:py-2 overflow-hidden ">
       <Carousel className="rounded-md  w-full">
         <CarouselContent>
           {item?.thumbnail.map((img, index) => (
@@ -34,7 +34,7 @@ export default function CarouselProduct({ item }: CarouselProps) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
+        <CarouselPrevious className="" />
         <CarouselNext />
       </Carousel>
     </div>

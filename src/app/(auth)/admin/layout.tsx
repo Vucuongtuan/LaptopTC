@@ -6,15 +6,18 @@ import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import { usePathname, useRouter } from "next/navigation";
+import { useMediaQuery } from "@mui/material";
 
 export default function AdminDashboardLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  window,
+}: Readonly<{ children: React.ReactNode; window: () => Window }>) {
   const router = useRouter();
   const pathname = usePathname();
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const [closeSidebar, setCloseSidebar] = useState<boolean>(false);
   const auth = useSelector((auth: RootState) => auth.auth.authAdmin);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     if (!auth && pathname !== "/admin/login") {
@@ -27,7 +30,13 @@ export default function AdminDashboardLayout({
       setTimeout(() => setIsLoading(false), 500);
     }
   }, [auth, pathname, router]);
-
+  if (isMobile) {
+    return (
+      <div className="w-full py-6 text-center text-xl">
+        <span>Trang không hỗ trợ cho thiết bị di động</span>
+      </div>
+    );
+  }
   return (
     <>
       {pathname === "/admin/login" ? (
@@ -37,12 +46,18 @@ export default function AdminDashboardLayout({
           <div className="spinner-border animate-spin"></div>
         </div>
       ) : (
-        <div className="m-0 flex justify-end w-full font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+        <div className="m-0 flex  w-full font-sans  text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
           <SidebarAdmin
-            sidebarOpen={sidebarOpen}
-            setSidebarOpen={setSidebarOpen}
+            closeSidebar={closeSidebar}
+            setCloseSidebar={setCloseSidebar}
           />
-          <div className=" w-[79%] my-2 px-1">{children}</div>
+          <div
+            className={`grow transition-all duration-500   ${
+              closeSidebar ? "ml-0" : "ml-[270px] sm:ml-0"
+            }  px-1`}
+          >
+            {children}
+          </div>
         </div>
       )}
     </>

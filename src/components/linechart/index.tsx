@@ -16,18 +16,13 @@ function LineChart({ data }: { data: any }): JSX.Element {
       type: "line",
       data: {
         labels: [
-          "Tháng 1",
-          "Tháng 2",
-          "Tháng 3",
-          "Tháng 4",
-          "Tháng 5",
-          "Tháng 6",
-          "Tháng 7",
-          "Tháng 8",
-          "Tháng 9",
-          "Tháng 10",
-          "Tháng 11",
-          "Tháng 12",
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
         ],
         datasets: [
           {
@@ -70,8 +65,11 @@ function LineChart({ data }: { data: any }): JSX.Element {
   }, [data]);
 
   return (
-    <div className="h-full w-full flex mx-auto my-auto ">
-      <div className="h-full relative rounded-xl w-full my-auto shadow-md ">
+    <div className="h-full w-full flex flex-col  mx-auto my-auto  ">
+      <h2 className="py-2 px-8 text-xl font-semibold text-black">
+        Doanh thu 2024
+      </h2>
+      <div className="grow   relative   w-full my-auto  shadow-md ">
         <canvas ref={chartRef} id="myChart" className=" w-full pt-2"></canvas>
       </div>
     </div>

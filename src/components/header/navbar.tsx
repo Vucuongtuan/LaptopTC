@@ -54,9 +54,11 @@ import { RootState } from "@/lib/store";
 const NavBar = ({
   menuLaptop,
   menuMouse,
+  menuKeyboard,
 }: {
   menuLaptop: IMenuItem[];
   menuMouse: IMenuItem[];
+  menuKeyboard: IMenuItem[];
 }) => {
   const auth = useSelector((state: RootState) => state.auth.authUser);
   const userName = useSelector((state: RootState) => state.auth.userName);
@@ -91,7 +93,9 @@ const NavBar = ({
             {auth === true ? (
               <>
                 <DropdownMenuLabel>Khách hàng : {userName}</DropdownMenuLabel>
-                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <Link href="/profile">
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                </Link>
                 <DropdownMenuItem>Billing</DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => {
@@ -300,6 +304,35 @@ const NavBar = ({
                     </NavigationMenuLink>
                   </li>
                   {menuMouse.map((menu) => (
+                    <ListItem href={menu.href} title={menu.title} key={menu.id}>
+                      {menu.models?.join(",")}
+                    </ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Bàn phím</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="w-full grid gap-3 grid-cols-3 grid-rows-3 p-6 ">
+                  <li className="row-span-2 col-span-2">
+                    <NavigationMenuLink asChild>
+                      <Link
+                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        href="/product/bàn phím"
+                      >
+                        <Icons.logo className="h-6 w-6" />
+                        <div className="mb-2 mt-4 text-lg font-medium">
+                          Bàn phím cao cấp
+                        </div>
+                        <p className="text-sm leading-tight text-muted-foreground">
+                          Cung cấp các mặt hàng Bàn phím văn phòng,Bàn phím
+                          gaming,...
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  {menuKeyboard.map((menu) => (
                     <ListItem href={menu.href} title={menu.title} key={menu.id}>
                       {menu.models?.join(",")}
                     </ListItem>

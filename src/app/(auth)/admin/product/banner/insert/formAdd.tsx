@@ -82,7 +82,6 @@ export default function FormAdd({ all }: FormAddBanner) {
               alt={data.description}
               height={150}
               width={150}
-              
             />
           </>
         ),
@@ -96,17 +95,6 @@ export default function FormAdd({ all }: FormAddBanner) {
         variant: "destructive",
       });
     }
-    // if (productResponse.status === 200) {
-    //   toast({
-    //     title: "Thêm mới thành công",
-    //   });
-    // } else if (productResponse.status === 500) {
-    //   toast({
-    //     title: "Thêm mới Thất bại",
-    //     description: "Kiểm tra lại các thông tin hoặc thử lại sau",
-    //     variant: "destructive",
-    //   });
-    // }
   };
 
   return (

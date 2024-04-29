@@ -23,7 +23,7 @@ export const SigninAccount = async (
   password: string | number
 ) => {
   const res = await http.post("/account/login", { email, password });
-  return res.data;
+  return res;
 };
 
 export const SignupAccount = async (data: TSignupAccountData) => {
@@ -47,7 +47,7 @@ export const AddToCart = async (data: TAddToCartData) => {
     total: data.total,
     listProduct: data.listProduct,
   };
-  const res = await http.post("/cart", dataList);
+  const res = await axios.post("http://localhost:4000/cart", dataList);
 
   return res.data;
 };

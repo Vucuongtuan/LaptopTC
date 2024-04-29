@@ -22,8 +22,8 @@ export default function ProductLayout({
       setPathName("laptop");
     } else if (pathname === "/product/chuot") {
       setPathName("chuot");
-    } else if (pathname === "/product/ban-phim") {
-      setPathName("ban-phim");
+    } else if (pathname === "/product/banphim") {
+      setPathName("banphim");
     } else {
       return setPathName("/");
     }
@@ -33,6 +33,7 @@ export default function ProductLayout({
     queryFn: () => getBrand(pathName),
     enabled: !!pathName,
   });
+  console.log(data);
 
   return (
     <Container>

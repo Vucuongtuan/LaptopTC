@@ -1,4 +1,5 @@
 import http from "@/utils/axios";
+import axios from "axios";
 
 interface ILoginAdmin {
   email: string;
@@ -22,5 +23,39 @@ export const checkTokenADmin = async (token: string | undefined) => {
     return res;
   } catch (error: any) {
     return error;
+  }
+};
+export const getAllBlog = async () => {
+  const res = await axios.get("http://localhost:4000/blog/all");
+  return res;
+};
+export const createBlogAPI = async (data: any) => {
+  const formBlog = new FormData();
+  formBlog.append("description", data.description);
+  formBlog.append("thumbnail", data.thumbnail[0]);
+  formBlog.append("idAuthor", data.idAuthor);
+  formBlog.append("author", data.author);
+  formBlog.append("idProduct", data.idProduct);
+  formBlog.append("title", data.title);
+  formBlog.append("body", data.body);
+  const res = await axios.post("http://localhost:4000/blog/create", formBlog);
+  return res;
+};
+export const getProfileByID = async (id: string) => {
+  const res = await axios.post(`http://localhost:4000/admin/q?id=${id}`);
+  return res;
+};
+export const updateProfile = async (data: any) => {
+  const res = await axios.put(`http://localhost:4000/admin/update`, data);
+  return res;
+};
+export const getOnlineAdmin = async () => {
+  try {
+    const res = await axios.get(`http://localhost:4000/admin/online`);
+
+    return res;
+  } catch (err) {
+    console.log(err);
+    return null;
   }
 };

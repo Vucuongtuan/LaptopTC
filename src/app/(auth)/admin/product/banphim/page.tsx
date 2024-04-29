@@ -46,7 +46,7 @@ export default async function AdminProductKeyboard({
         "
         >
           <Link
-            href={"/admin/product/chuot/insert"}
+            href={"/admin/product/banphim/insert"}
             className="float-left  bg-blue-500 text-black p-2 rounded-md hover:bg-blue-400 font-semibold"
           >
             Thêm mới

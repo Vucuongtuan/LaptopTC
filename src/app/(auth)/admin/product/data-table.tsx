@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import * as React from "react";
 import {
   AlertDialog,
@@ -32,7 +32,7 @@ export default function DataTable({ data }: DataTableProps) {
   const { toast } = useToast();
   const searchParams = useSearchParams();
   const [page, setPage] = React.useState<string>("");
-
+  const router = useRouter();
   React.useEffect(() => {
     const query = searchParams.get("page") || "1";
     setPage(query);
@@ -117,7 +117,15 @@ export default function DataTable({ data }: DataTableProps) {
                       <AlertDialogDescription></AlertDialogDescription>
                       <AlertDialogFooter>
                         <AlertDialogCancel>Thoát</AlertDialogCancel>
-                        <AlertDialogAction>Sửa</AlertDialogAction>
+                        <AlertDialogAction
+                          onClick={() => {
+                            router.push(
+                              `/admin/product/banphim/update?id=${product._id}`
+                            );
+                          }}
+                        >
+                          Sửa
+                        </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>

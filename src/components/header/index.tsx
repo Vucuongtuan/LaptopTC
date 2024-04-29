@@ -54,19 +54,19 @@ const menuLaptop: IMenuItem[] = [
 const menuMouse: IMenuItem[] = [
   {
     id: 1,
-    href: "/product/chuot/asus",
+    href: "/product/chuot?hang=Asus&id_brand=658a6f57a729dca615ea5d08",
     title: "Chuột Asus",
     models: ["Chuột Asus ROG", "Chuột Asus TUF"],
   },
   {
     id: 2,
-    href: "/product/chuot/logitech",
+    href: "/product/chuot?hang=Logitech&id_brand=658a71a1a729dca615ea5d0f",
     title: "Chuột Logitech",
     models: ["Chuột Logitech G Pro", "Chuột Logitech M"],
   },
   {
     id: 3,
-    href: "/product/chuot/razer ",
+    href: "/product/chuot?hang=Razer&id_brand=658a71eca729dca615ea5d10 ",
     title: "Chuột Razer ",
     models: [
       "Chuột Razer  Basilisk ",
@@ -76,9 +76,45 @@ const menuMouse: IMenuItem[] = [
   },
   {
     id: 4,
-    href: "/product/chuot/corsair",
-    title: "Chuột Corsair",
+    href: "/product/chuot?hang=Color%20Master&id_brand=658a7163a729dca615ea5d0e",
+    title: "Chuột Color Master",
     models: ["Chuột Sabre ", "Chuột Gigabyte Katar "],
+  },
+];
+const menuKeyboard: IMenuItem[] = [
+  {
+    id: 1,
+    href: "/product/banphim?hang=Asus&id_brand=658a6f57a729dca615ea5d08",
+    title: "Bàn phím Asus",
+    models: ["Bàn phím Asus ROG", "Bàn phím Asus TUF"],
+  },
+  {
+    id: 2,
+    href: "/product/banphim?hang=Logitech&id_brand=658a71a1a729dca615ea5d0f",
+    title: "Bàn phím Logitech",
+    models: ["Bàn phím Logitech G Pro", "Bàn phím Logitech M"],
+  },
+  {
+    id: 3,
+    href: "/product/banphim?hang=Razer&id_brand=658a71eca729dca615ea5d10",
+    title: "Bàn phím Razer ",
+    models: [
+      "Bàn phím Razer  Basilisk ",
+      "Bàn phím Razer  Orochi ",
+      "Bàn phím Razer  Cobra Pro",
+    ],
+  },
+  {
+    id: 4,
+    href: "/product/banphim?hang=Color%20Master&id_brand=658a7163a729dca615ea5d0e",
+    title: "Bàn phím Color Master",
+    models: ["Bàn phím Sabre ", "Bàn phím Gigabyte Katar "],
+  },
+  {
+    id: 5,
+    href: "/product/banphim?hang=AKKO&id_brand=65aa95f63334f337b9456649",
+    title: "Bàn phím AKKO",
+    models: ["Bàn phím AKKO "],
   },
 ];
 
@@ -86,7 +122,11 @@ const Header = () => {
   return (
     <header className="w-full h-[90px]  shadow-lg  text-black sm:h-[60px]">
       <Container>
-        <NavBar menuLaptop={menuLaptop} menuMouse={menuMouse} />
+        <NavBar
+          menuLaptop={menuLaptop}
+          menuMouse={menuMouse}
+          menuKeyboard={menuKeyboard}
+        />
       </Container>
     </header>
   );

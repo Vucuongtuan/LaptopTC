@@ -1,3 +1,4 @@
+import { getOnlineAdmin } from "@/api/admin/index.api";
 import { getAllData, getRevenue } from "@/api/product/index.api";
 import LineChart from "@/components/linechart";
 import SidebarAdmin from "@/components/sideBarADmin";
@@ -6,9 +7,12 @@ import Image from "next/image";
 import React from "react";
 
 export default async function DashboardAdminPage() {
-  const { data } = await getRevenue();
-  const currentTotal = parseFloat(data.total[data.total.length - 1]);
-  const previousTotal = parseFloat(data.total[data.total.length - 2]);
+  const [data, adminOnline] = await Promise.all([
+    getRevenue(),
+    getOnlineAdmin(),
+  ]);
+  const currentTotal = parseFloat(data.data.total[data.data.total.length - 1]);
+  const previousTotal = parseFloat(data.data.total[data.data.total.length - 2]);
   const changePercentage = Math.floor(
     ((currentTotal - previousTotal) / previousTotal) * 100
   );
@@ -55,7 +59,7 @@ export default async function DashboardAdminPage() {
   }
 
   return (
-    <main className="ease-soft-in-out   xl:ml-68.5 relative  h-full max-h-screen rounded-xl transition-all duration-200 md:w-full sm:w-full">
+    <main className="ease-soft-in-out px-2  xl:ml-68.5 relative  h-full max-h-screen rounded-xl transition-all duration-200 md:w-full sm:w-full">
       <nav
         className="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all shadow-none duration-250 ease-soft-in rounded-2xl lg:flex-nowrap lg:justify-start"
         navbar-main
@@ -76,13 +80,13 @@ export default async function DashboardAdminPage() {
                 Home
               </li>
             </ol>
-            <h6 className="mb-0 font-bold capitalize">Home</h6>
+            <h1 className="mb-0 font-bold capitalize">Home</h1>
           </nav>
         </div>
       </nav>
-      <section className="flex py-12 w-full h-[500px] mt-2 ">
+      <section className="flex py-12 w-full h-[550px] mt-2 ">
         <div className=" w-2/3 h-full rounded-md shadow-md relative ">
-          <LineChart data={data} />
+          <LineChart data={data.data} />
         </div>
         <div className="flex-grow mx-6 rounded-md shadow-md">
           <h2 className="text-red-400 h-1/6 font-semibold text-2xl text-center py-8 ">
@@ -111,7 +115,7 @@ export default async function DashboardAdminPage() {
               </div>
               <span className="text-lg">
                 Tổng doanh thu :{" "}
-                {data.total[data.total.length - 1].replace(
+                {data.data.total[data.data.total.length - 1].replace(
                   /\B(?=(\d{3})+(?!\d))/g,
                   "."
                 )}{" "}
@@ -120,6 +124,48 @@ export default async function DashboardAdminPage() {
             </div>
           </div>
         </div>
+      </section>
+      <section className="min-h-[300px] w-full h-auto">
+        <table className="w-full h-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                Id
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Name
+              </th>
+
+              <th scope="col" className="px-6 py-3 text-center">
+                author
+              </th>
+              <th scope="col" className="px-6 py-3">
+                ID Product
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {adminOnline !== null ? (
+              adminOnline?.data.map((item: any) => (
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  key={item._id}
+                >
+                  <td className="px-6 py-4"> {item._id}</td>
+                  <td className="px-6 py-4 text-center">{item.name}</td>
+                  <td className="px-6 py-4 text-center">{item.position}</td>
+                </tr>
+              ))
+            ) : (
+              <span className="text-center">
+                Không có người nào đang online
+              </span>
+            )}
+          </tbody>
+        </table>
       </section>
     </main>
   );

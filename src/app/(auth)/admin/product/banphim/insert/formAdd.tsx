@@ -33,8 +33,8 @@ import LoadingPage from "@/components/loadingElement";
 
 const keyboardSchema = z.object({
   name: z.string(),
-  total: z.number(),
-  thumbnail: z.array(z.string()),
+  total: z.string(),
+  thumbnail: z.array(z.any()),
   layout: z.string(),
   switch_key: z.string(),
   pin: z.string().nullable(),
@@ -42,18 +42,16 @@ const keyboardSchema = z.object({
   foam: z.string().nullable(),
   weight: z.string(),
   size: z.string(),
-  connector: z.array(z.string()),
   configuration: z.string().nullable(),
   keycap: z.string(),
   support: z.string(),
   accessory: z.string(),
   software: z.string(),
   compatibility: z.string(),
-  discount_percent: z.number(),
-  inventory: z.number(),
+  discount_percent: z.string().default("0"),
+  inventory: z.string(),
   product_type_keybourd: z.string(),
   product_brand: z.string(),
-  totalPurchases: z.string(),
   description: z.string(),
   brands: z.string(),
 });
@@ -87,8 +85,9 @@ export default function FormAddKeyboard({ brand, type }: FormAddKeyboard) {
   useEffect(() => {
     setValue("thumbnail", changeThumbnail);
     setValue("product_brand", changeBrand);
-    setValue("connector", connectors);
     setValue("product_type_keybourd", changeType);
+    setValue("weight", "-");
+    setValue("size", "-");
   }, [setValue, changeThumbnail, changeBrand, changeType, connectors]);
 
   const handleUploadThumbnail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -102,8 +101,34 @@ export default function FormAddKeyboard({ brand, type }: FormAddKeyboard) {
 
   const onSubmit = async (data: FormData) => {
     try {
+      console.log("====================================");
+      console.log(data.total);
+      console.log("====================================");
       setIsLoading(true);
-      const res = await postKeyboard(data);
+      const res = await postKeyboard({
+        name: data.name,
+        total: data.total,
+        thumbnail: data.thumbnail,
+        layout: data.layout,
+        switch_key: data.switch_key,
+        pin: data.pin,
+        personal: data.personal,
+        foam: data.foam,
+        weight: data.weight,
+        size: data.size || "-",
+        configuration: data.configuration,
+        keycap: data.keycap,
+        support: data.support,
+        accessory: data.accessory,
+        software: data.software,
+        compatibility: data.compatibility,
+        discount_percent: data.discount_percent,
+        inventory: data.inventory,
+        product_type_keybourd: data.product_type_keybourd,
+        product_brand: data.product_brand,
+        description: data.description,
+        brands: data.brands,
+      });
       // {
       //   name: data.name,
       //   total: data.total,
@@ -130,32 +155,22 @@ export default function FormAddKeyboard({ brand, type }: FormAddKeyboard) {
       //   description: data.description,
       //   brands: data.brands,
       // }
-      toast({
-        title: "click",
-        description: (
-          <>
-            <h3>{data.description}</h3>
-            <Image
-              src={data.thumbnail[0]}
-              alt={data.description}
-              height={150}
-              width={150}
-            />
-          </>
-        ),
-      });
+
       if (res.status === 200) {
         toast({
           title: "Thêm mới bàn phím thành công",
           description: (
             <>
               <h3>{data.description}</h3>
-              <Image
-                src={data.thumbnail[0]}
-                alt={data.description}
-                height={150}
-                width={150}
-              />
+              <div className="w-full">
+                <Image
+                  src={URL.createObjectURL(data.thumbnail[0])}
+                  alt={data.description}
+                  height={150}
+                  width={150}
+                  className="w-full object-cover"
+                />
+              </div>
             </>
           ),
         });
@@ -258,7 +273,7 @@ export default function FormAddKeyboard({ brand, type }: FormAddKeyboard) {
                 <input
                   type="text"
                   id="total"
-                  {...register("total", { required: true })}
+                  {...register("total")}
                   className="mt-1 p-2 w-full border rounded-md"
                 />
                 {errors.total && (
@@ -520,21 +535,21 @@ export default function FormAddKeyboard({ brand, type }: FormAddKeyboard) {
           </div>
           <div className="py-2">
             <label
-              htmlFor="weight"
+              htmlFor="layout"
               className="block text-sm font-medium text-gray-700"
             >
-              Weight
+              layout
             </label>
             <input
               type="text"
-              id="weight"
-              {...register("weight")}
+              id="layout"
+              {...register("layout")}
               className="mt-1 p-2 h-full w-full border rounded-md"
               multiple
             />
-            {errors.weight && (
+            {errors.layout && (
               <span className="text-red-500">
-                Weight sản phẩm không được để trống
+                layout sản phẩm không được để trống
               </span>
             )}
           </div>

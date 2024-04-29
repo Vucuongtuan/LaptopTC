@@ -1,7 +1,7 @@
 import http from "@/utils/axios";
 import all from "../../assets/image/all.jpg";
 import axios from "axios";
-import { IApiBanner } from "@/types/data/index.types";
+import { IApiBanner, IComment } from "@/types/data/index.types";
 declare module "axios" {
   interface AxiosRequestConfig {
     next?: {
@@ -94,7 +94,7 @@ export const getBrand = async (name: string | unknown) => {
   let newName;
   if (name === "laptop") {
     newName = "Laptop";
-  } else if (name === "ban-phim") {
+  } else if (name === "banphim") {
     newName = "Bàn phím";
   } else if (name === "chuot") {
     newName = "Chuột";
@@ -176,7 +176,7 @@ export const postProductMouse = async (data: any) => {
   formData.append("brands", data.brands);
   formData.append("total", data.total);
   formData.append("description", data.description);
-  formData.append("totalPurchases", data.totalPurchases);
+  formData.append("totalPurchases", data.totalPurchases || "0");
   formData.append("discount_percent", data.discount_percent);
   formData.append("inventory", data.inventory);
   formData.append("details", JSON.stringify(data.details));
@@ -244,5 +244,65 @@ export const getKeyboardType = async () => {
 };
 export const deleteBanner = async (id: string) => {
   const res = await http.delete(`/banner/${id}`);
+  return res;
+};
+export const getComment = async (id: string) => {
+  const res = await axios.post("http://localhost:4000/comment", {
+    idProduct: id,
+  });
+  return res;
+};
+export const insertComment = async (data: IComment) => {
+  const res = await axios.post("http://localhost:4000/comment/insert", data);
+  return res;
+};
+export const getBlogByIdProduct = async (id: string) => {
+  try {
+    const res = await axios.post("http://localhost:4000/blog/product", {
+      idProduct: id,
+    });
+    return res;
+  } catch (error) {
+    return "";
+  }
+};
+export const likeComment = async (
+  idUser: string | null,
+  idComment: string,
+  idProduct: string
+) => {
+  const res = await axios.post(
+    `http://localhost:4000/comment/${idComment}/likes`,
+    { userId: idUser, idProduct }
+  );
+  return res;
+};
+export const replyComment = async (
+  idComment: string,
+  comment: string,
+  name: string,
+  idProduct: string,
+  idUser?: string | null,
+  idAdmin?: string | null
+) => {
+  if (idAdmin) {
+    const res = await axios.post(
+      `http://localhost:4000/comment/${idComment}/reply`,
+      { idAdmin: idAdmin, idProduct, comment, name }
+    );
+    return res;
+  }
+  const res = await axios.post(
+    `http://localhost:4000/comment/${idComment}/reply`,
+    { userId: idUser, idProduct, comment, name }
+  );
+  return res;
+};
+export const updateBanPhim = async () => {
+  const formData = new FormData();
+  const res = await axios.put(
+    `http://localhost:4000/product/keyboard`,
+    formData
+  );
   return res;
 };

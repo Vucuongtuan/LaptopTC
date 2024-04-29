@@ -9,7 +9,7 @@ import {
 
 async function InsertMousePage() {
   const [brand, type] = await Promise.all([
-    getBrand("ban-phim"),
+    getBrand("banphim"),
     getKeyboardType(),
   ]);
   return (

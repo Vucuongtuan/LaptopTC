@@ -20,6 +20,7 @@ import { Button } from "../ui/button";
 import { SigninAccount } from "@/api/user/index.api";
 import { useDispatch } from "react-redux";
 import { setAuthUser, setUserName } from "@/lib/features/auth";
+import { CircularProgress } from "@mui/material";
 
 const formSchema = z.object({
   email: z
@@ -36,6 +37,7 @@ const formSchema = z.object({
     .max(20, { message: "password không quá 20 ký tự" }),
 });
 export default function Login() {
+  const [loading, setLoading] = React.useState<boolean>(false);
   const dispath = useDispatch();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -46,21 +48,23 @@ export default function Login() {
     },
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setLoading(true);
     await SigninAccount(values.email, values.password).then((res: any) => {
       Cookies.set("userToken", res.token, {
-        expires: 1,
+        expires: res.data.expiresIn,
         // httpOnly: true,
         // secure: true,
       });
+
       dispath(setAuthUser(true));
-      dispath(setUserName(res.userName));
+      dispath(setUserName(res.data.userName));
       localStorage.setItem(
         "userData",
         JSON.stringify({
-          userName: res.username,
+          userName: res.data.username,
         })
       );
-      localStorage.setItem("userID", res.userId);
+      localStorage.setItem("userID", res.data.userId);
 
       toast({
         title: "Đăng nhập thành công",
@@ -69,8 +73,16 @@ export default function Login() {
     });
     setTimeout(() => {
       window.location.reload();
-    }, 3000);
+      setLoading(false);
+    }, 2000);
   };
+  if (loading === true) {
+    return (
+      <div className="flex justify-center items-center h-full min-h-[300px] w-full">
+        <CircularProgress />
+      </div>
+    );
+  }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">

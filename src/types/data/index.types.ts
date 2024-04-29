@@ -113,3 +113,7 @@ export type TButtonAddToCart = {
 export type ProductCardProps = {
   data: IApiProduct[] | IApiKeyboard[] | IApiMouse[];
 };
+export type IComment = {
+  idProduct: string;
+  comment?: any | null;
+};
