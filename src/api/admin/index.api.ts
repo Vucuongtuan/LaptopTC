@@ -26,7 +26,7 @@ export const checkTokenADmin = async (token: string | undefined) => {
   }
 };
 export const getAllBlog = async () => {
-  const res = await axios.get("http://localhost:4000/blog/all");
+  const res = await http.get("/blog/all");
   return res;
 };
 export const createBlogAPI = async (data: any) => {
@@ -38,20 +38,20 @@ export const createBlogAPI = async (data: any) => {
   formBlog.append("idProduct", data.idProduct);
   formBlog.append("title", data.title);
   formBlog.append("body", data.body);
-  const res = await axios.post("http://localhost:4000/blog/create", formBlog);
+  const res = await http.post("/blog/create", formBlog);
   return res;
 };
 export const getProfileByID = async (id: string) => {
-  const res = await axios.post(`http://localhost:4000/admin/q?id=${id}`);
+  const res = await http.post(`/admin/q?id=${id}`);
   return res;
 };
 export const updateProfile = async (data: any) => {
-  const res = await axios.put(`http://localhost:4000/admin/update`, data);
+  const res = await http.put(`/admin/update`, data);
   return res;
 };
 export const getOnlineAdmin = async () => {
   try {
-    const res = await axios.get(`http://localhost:4000/admin/online`);
+    const res = await http.get(`/admin/online`);
 
     return res;
   } catch (err) {

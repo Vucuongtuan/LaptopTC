@@ -26,7 +26,7 @@ export const getDataLaptop = async (limit?: number, page?: number) => {
   if (limit) url += "?limit=" + limit;
   else if (limit && page) url += `?page=${page}&limit=${limit}`;
   let res = await http.get(url);
-  // let res = await axios.get("http://localhost:4000/product/laptop");
+  // let res = await axios.get("/product/laptop");
   return res.data;
 };
 export const getDataMouse = async (limit?: number, page?: number) => {
@@ -164,10 +164,7 @@ export const postProductLaptop = async (data: any) => {
   data.thumbnails.forEach((thumbnail: any, index: number) => {
     formData.append("thumbnail", thumbnail);
   });
-  const res = await axios.post(
-    `http://localhost:4000/product/laptop`,
-    formData
-  );
+  const res = await axios.post(`/product/laptop`, formData);
   return res;
 };
 export const postProductMouse = async (data: any) => {
@@ -186,7 +183,7 @@ export const postProductMouse = async (data: any) => {
   data.thumbnails.forEach((thumbnail: any, index: number) => {
     formData.append("thumbnail", thumbnail);
   });
-  const res = await axios.post(`http://localhost:4000/product/mouse`, formData);
+  const res = await http.post(`/product/mouse`, formData);
   return res;
 };
 export const postBanner = async (data: any) => {
@@ -195,7 +192,7 @@ export const postBanner = async (data: any) => {
   formBanner.append("thumbnail", data.thumbnail);
   formBanner.append("id", data.id);
 
-  let res = await axios.post(`http://localhost:4000/banner`, formBanner);
+  let res = await http.post(`/banner`, formBanner);
   return res;
 };
 
@@ -227,10 +224,7 @@ export const postKeyboard = async (data: any) => {
   formKeyboard.append("product_brand", data.product_brand);
   formKeyboard.append("brands", data.brands);
 
-  let res = await axios.post(
-    `http://localhost:4000/product/keyboard`,
-    formKeyboard
-  );
+  let res = await http.post(`/product/keyboard`, formKeyboard);
   return res;
 };
 export const getAllPost = async () => {};
@@ -247,18 +241,18 @@ export const deleteBanner = async (id: string) => {
   return res;
 };
 export const getComment = async (id: string) => {
-  const res = await axios.post("http://localhost:4000/comment", {
+  const res = await http.post("/comment", {
     idProduct: id,
   });
   return res;
 };
 export const insertComment = async (data: IComment) => {
-  const res = await axios.post("http://localhost:4000/comment/insert", data);
+  const res = await http.post("/comment/insert", data);
   return res;
 };
 export const getBlogByIdProduct = async (id: string) => {
   try {
-    const res = await axios.post("http://localhost:4000/blog/product", {
+    const res = await http.post("/blog/product", {
       idProduct: id,
     });
     return res;
@@ -271,10 +265,10 @@ export const likeComment = async (
   idComment: string,
   idProduct: string
 ) => {
-  const res = await axios.post(
-    `http://localhost:4000/comment/${idComment}/likes`,
-    { userId: idUser, idProduct }
-  );
+  const res = await axios.post(`/comment/${idComment}/likes`, {
+    userId: idUser,
+    idProduct,
+  });
   return res;
 };
 export const replyComment = async (
@@ -286,23 +280,24 @@ export const replyComment = async (
   idAdmin?: string | null
 ) => {
   if (idAdmin) {
-    const res = await axios.post(
-      `http://localhost:4000/comment/${idComment}/reply`,
-      { idAdmin: idAdmin, idProduct, comment, name }
-    );
+    const res = await axios.post(`/comment/${idComment}/reply`, {
+      idAdmin: idAdmin,
+      idProduct,
+      comment,
+      name,
+    });
     return res;
   }
-  const res = await axios.post(
-    `http://localhost:4000/comment/${idComment}/reply`,
-    { userId: idUser, idProduct, comment, name }
-  );
+  const res = await axios.post(`/comment/${idComment}/reply`, {
+    userId: idUser,
+    idProduct,
+    comment,
+    name,
+  });
   return res;
 };
 export const updateBanPhim = async () => {
   const formData = new FormData();
-  const res = await axios.put(
-    `http://localhost:4000/product/keyboard`,
-    formData
-  );
+  const res = await axios.put(`/product/keyboard`, formData);
   return res;
 };

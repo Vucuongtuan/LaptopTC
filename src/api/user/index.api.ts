@@ -47,7 +47,7 @@ export const AddToCart = async (data: TAddToCartData) => {
     total: data.total,
     listProduct: data.listProduct,
   };
-  const res = await axios.post("http://localhost:4000/cart", dataList);
+  const res = await http.post("/cart", dataList);
 
   return res.data;
 };
