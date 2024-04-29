@@ -10,7 +10,8 @@ export default async function sitemap({
 }): Promise<MetadataRoute.Sitemap> {
   const { data } = await getAllData();
   return data.map((product: any) => ({
-    url: `${process.env.BASE_URL_SERVER}/product/${product._id}`,
-    lastModified: product.create_date,
+    url: `${process.env.BASE_URL_SERVER}/details/${product._id}`,
+    lastModified: product.create_product,
+    priority: 0.8,
   }));
 }
