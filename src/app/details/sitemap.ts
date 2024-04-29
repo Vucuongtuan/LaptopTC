@@ -8,8 +8,8 @@ export default async function sitemap({
 }: {
   id: number;
 }): Promise<MetadataRoute.Sitemap> {
-  const products = await getAllData();
-  return products.map((product: any) => ({
+  const { data } = await getAllData();
+  return data.map((product: any) => ({
     url: `${process.env.BASE_URL_SERVER}/product/${product._id}`,
     lastModified: product.create_date,
   }));
