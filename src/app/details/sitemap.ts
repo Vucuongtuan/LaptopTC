@@ -16,7 +16,7 @@ export default async function sitemap({
   const end = start + 50000;
   const products = await getAllData();
   return products.map((product: any) => ({
-    url: `${http}/product/${product._id}`,
+    url: `${process.env.BASE_URL_SERVER}/product/${product._id}`,
     lastModified: product.create_date,
   }));
 }
