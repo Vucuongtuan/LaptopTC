@@ -10,7 +10,21 @@ import ProductTrend from "@/components/productTrend";
 import { Container } from "@mui/material";
 import Image from "next/image";
 import { Suspense } from "react";
+import {Metadata} from "next"
 
+export const metadata: Metadata = {
+  title: "Laptop_TC | Chuyên cung cấp những sản phẩm laptop gaming , văn phòng",
+  description:
+    "Laptop_TC | Chuyên cung cấp những sản phẩm laptop gaming , văn phòng",
+    openGraph:{
+      title:"Laptop_TC | Chuyên cung cấp những sản phẩm laptop gaming , văn phòng",
+      description:
+    "Laptop_TC | Chuyên cung cấp những sản phẩm laptop gaming , văn phòng",
+    images:[{
+      url:"/logo.png"
+    }]
+    }
+};
 export default async function Home() {
   const [dataLaptop, dataMouse, dataKeyboard]: [any, any, any] =
     await Promise.all([getDataLaptop(8), getDataMouse(8), getDataKeyboard(8)]);

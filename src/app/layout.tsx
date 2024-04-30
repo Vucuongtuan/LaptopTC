@@ -9,11 +9,6 @@ import { Analytics } from "@vercel/analytics/react";
 import LayoutProvider from "./layoutProvider";
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Laptop_TC | Chuyên cung cấp những sản phẩm laptop gaming , văn phòng",
-  description:
-    "Laptop_TC | Chuyên cung cấp những sản phẩm laptop gaming , văn phòng",
-};
 
 export default function RootLayout({
   children,
