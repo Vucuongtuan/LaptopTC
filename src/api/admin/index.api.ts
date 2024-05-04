@@ -38,7 +38,7 @@ export const createBlogAPI = async (data: any) => {
   formBlog.append("idProduct", data.idProduct);
   formBlog.append("title", data.title);
   formBlog.append("body", data.body);
-  const res = await http.post("/blog/create", formBlog);
+  const res = await axios.post("http://localhost:4000/blog/create", formBlog);
   return res;
 };
 export const getProfileByID = async (id: string) => {

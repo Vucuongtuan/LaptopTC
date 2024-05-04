@@ -69,6 +69,9 @@ export default function SidebarAdmin({
       window.location.reload();
     }
   };
+  console.log("====================================");
+  console.log(adminName);
+  console.log("====================================");
   // if (isMobile) {
   //   return (
   //     <aside
@@ -90,13 +93,13 @@ export default function SidebarAdmin({
         style={closeSidebar ? { marginLeft: "-255px" } : {}}
       >
         <div className="h-[100px] ">
-          <Image
+          {/* <Image
             src="/logo.jpg"
             alt="Laptop_TC"
             width={600}
             height={600}
             className="w-full h-full -p-2 object-cover"
-          />
+          /> */}
         </div>
         <hr className="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
         <div className="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full py-1">

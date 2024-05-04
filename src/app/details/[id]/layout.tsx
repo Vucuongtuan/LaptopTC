@@ -38,7 +38,7 @@ export default async function DetailsLayout({
           <BreadcrumdTheme nameb={data.data[0].name} />
           {children}
           <section className=" mt-2  flex flex-row  md:flex-col sm:flex-col ">
-            <div className="w-[60%] h-full rounded-md bg-white mr-2 px-1 sm:w-full">
+            <div className="w-[70%]  h-full rounded-md bg-white mr-2 px-4 sm:w-full">
               {blog !== "" ? (
                 <MakupHtml content={blog?.data?.body} />
               ) : (
@@ -47,7 +47,7 @@ export default async function DetailsLayout({
                 </h2>
               )}
             </div>
-            <div className="bg-white w-[40%] p-2 md:w-full sm:w-full"></div>{" "}
+            <div className="bg-white w-[30%] p-2 md:w-full sm:w-full"></div>{" "}
           </section>
           <hr />
           <div className="comment bg-white mt-2 rounded-md">

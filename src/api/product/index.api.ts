@@ -250,6 +250,12 @@ export const insertComment = async (data: IComment) => {
   const res = await http.post("/comment/insert", data);
   return res;
 };
+export const getAllBlogNoProduct = async (page: string) => {
+  const res = await axios.post(
+    `http://localhost:4000/blog/no-product${"?page=" + page || 1}`
+  );
+  return res;
+};
 export const getBlogByIdProduct = async (id: string) => {
   try {
     const res = await http.post("/blog/product", {
