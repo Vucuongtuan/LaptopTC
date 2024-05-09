@@ -1,11 +1,11 @@
 import Link from "next/link";
 import React from "react";
 import PaginationProduct from "../product/pagination";
-import { getAllBlog } from "@/api/admin/index.api";
 import TableBlogAll from "./table";
+import { getAllBlog } from "@/api/admin/index.api";
 
 export default async function BlogPage() {
-  const data = await getAllBlog();
+  const data = await getAllBlog("1");
 
   return (
     <main className="">
