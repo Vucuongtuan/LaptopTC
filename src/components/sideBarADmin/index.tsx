@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import SidebarLinkGroup from "./SidebarAdminNav";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Cookies from "js-cookie";
@@ -10,7 +9,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -30,7 +28,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, IconButton, useMediaQuery } from "@mui/material";
+import { Avatar } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 
@@ -44,24 +42,18 @@ export default function SidebarAdmin({
   setCloseSidebar,
 }: SidebarProps) {
   const pathname = usePathname();
-  const { adminName, authAdmin } = useSelector((auth: RootState) => auth.auth);
-  let storedSidebarExpanded = "true";
-  const [sidebarExpanded, setSidebarExpanded] = useState(
-    storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
-  );
+  const { adminName } = useSelector((auth: RootState) => auth.auth);
+
   const [profile, setProfile] = useState<any>(null);
   useEffect(() => {
     if (typeof window !== "undefined") {
       const local = JSON.parse(localStorage.getItem("adminData") ?? "");
       setProfile(local);
-      console.log("====================================");
-      console.log(local);
-      console.log("====================================");
     }
   }, []);
   const handleClosedAndOpenSidebar = React.useCallback(() => {
     setCloseSidebar(!closeSidebar);
-  }, [closeSidebar]);
+  }, [closeSidebar, setCloseSidebar]);
   const handleLogOut = () => {
     if (typeof window !== "undefined") {
       localStorage.removeItem("adminData");
@@ -69,9 +61,6 @@ export default function SidebarAdmin({
       window.location.reload();
     }
   };
-  console.log("====================================");
-  console.log(adminName);
-  console.log("====================================");
   // if (isMobile) {
   //   return (
   //     <aside
@@ -93,13 +82,13 @@ export default function SidebarAdmin({
         style={closeSidebar ? { marginLeft: "-255px" } : {}}
       >
         <div className="h-[100px] ">
-          {/* <Image
+          <Image
             src="/logo.jpg"
             alt="Laptop_TC"
             width={600}
             height={600}
             className="w-full h-full -p-2 object-cover"
-          /> */}
+          />
         </div>
         <hr className="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
         <div className="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full py-1">

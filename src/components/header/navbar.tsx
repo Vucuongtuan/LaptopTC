@@ -62,7 +62,6 @@ const NavBar = ({
 }) => {
   const auth = useSelector((state: RootState) => state.auth.authUser);
   const userName = useSelector((state: RootState) => state.auth.userName);
-
   const LoginElement = () => {
     return (
       <DropdownMenu>
@@ -93,7 +92,7 @@ const NavBar = ({
             {auth === true ? (
               <>
                 <DropdownMenuLabel>Khách hàng : {userName}</DropdownMenuLabel>
-                <Link href="/profile">
+                <Link href={`/profile`}>
                   <DropdownMenuItem>Profile</DropdownMenuItem>
                 </Link>
                 <DropdownMenuItem>Billing</DropdownMenuItem>
@@ -214,13 +213,13 @@ const NavBar = ({
         <div className="w-[200px] flex justify-center items-center sm:justify-start  ">
           <div className="  sm:text-left sm:text-xl    ">
             <Link href="/" className="h-full w-full  ">
-              <Image
+              {/* <Image
                 src="/logo.png"
                 alt="Laptop_TC"
                 height={400}
                 width={400}
                 className="h-full w-full object-cover"
-              />
+              /> */}
             </Link>
             <Link href="/" className="hidden">
               <h1>Laptop_TC</h1>

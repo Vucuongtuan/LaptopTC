@@ -1,12 +1,12 @@
 import React from "react";
-import FormUpdateBanPhim from "./formUpdate";
+import FormUpdateMouse from "./formUpdate";
 import {
   getAllDataByID,
   getBrand,
   getKeyboardType,
 } from "@/api/product/index.api";
 
-export default async function UpdateBanphimPage({
+export default async function UpdateMousePage({
   searchParams,
 }: {
   searchParams: { id: string };
@@ -40,7 +40,7 @@ export default async function UpdateBanphimPage({
         </div>
       </nav>
       <section className="w-full px-2 h-auto">
-        <FormUpdateBanPhim data={data} />
+        <FormUpdateMouse data={data} />
       </section>
     </main>
   );

@@ -2,7 +2,6 @@
 import { RootState } from "@/lib/store";
 import React, { ChangeEvent, memo } from "react";
 import { useSelector } from "react-redux";
-import ReactQuill from "react-quill";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import { Button, debounce } from "@mui/material";
@@ -22,7 +21,6 @@ import TextEditor from "./textEditor";
 import { createBlogAPI } from "@/api/admin/index.api";
 import { useToast } from "@/components/ui/use-toast";
 import { Description } from "@radix-ui/react-toast";
-import LoadingElement from "@/components/loading";
 
 // const modules = {
 //   toolbar: [
@@ -55,7 +53,6 @@ import LoadingElement from "@/components/loading";
 function CreateBlog() {
   const [thumbnail, setThumbnail] = React.useState<any[]>([]);
   const [search, setSearch] = React.useState<string>("");
-  const [idProduct, setidProduct] = React.useState<string>("");
   const [listProduct, setListProduct] = React.useState<any[] | undefined>([]);
   const [product, setProduct] = React.useState<string>("");
   const [loading, isLoading] = React.useState<boolean>(false);
@@ -140,7 +137,7 @@ function CreateBlog() {
                         className="w-full h-[160px] flex mb-2 rounded-md shadow-md cursor-pointer "
                         key={item._id}
                         onClick={() => {
-                          setidProduct(item._id);
+                          setValue("idProduct", item._id);
                           setProduct(item.name);
                         }}
                       >
@@ -192,7 +189,7 @@ function CreateBlog() {
         description: data.description,
         author: data.author,
         idAuthor: data.idAuthor,
-        idProduct: idProduct.length === 0 ? null : idProduct,
+        idProduct: data.idProduct,
         thumbnail: thumbnail,
         body: data.content,
       };
@@ -200,10 +197,10 @@ function CreateBlog() {
       const res = await createBlogAPI(newData);
 
       if (res.status === 200) {
-        reset();
         toast({
           title: "Thêm mới bài viết thành cống",
         });
+        reset();
       } else if (res.status === 500) {
         toast({
           title: "Thêm mới thất bại",
@@ -220,13 +217,7 @@ function CreateBlog() {
       isLoading(false);
     }
   };
-  if (loading === true) {
-    return (
-      <>
-        <LoadingElement />
-      </>
-    );
-  }
+
   return (
     <form
       method="post"
