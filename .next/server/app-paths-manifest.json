@@ -1,14 +1,4 @@
 {
-<<<<<<< HEAD
-  "/blog/page": "app/blog/page.js",
-  "/details/[id]/page": "app/details/[id]/page.js",
-  "/(auth)/admin/page": "app/(auth)/admin/page.js",
-  "/(auth)/admin/blog/page": "app/(auth)/admin/blog/page.js",
-  "/(auth)/admin/blog/insert/page": "app/(auth)/admin/blog/insert/page.js"
-=======
-  "/page": "app/page.js",
-  "/opengraph-image.png/route": "app/opengraph-image.png/route.js",
-  "/details/[id]/page": "app/details/[id]/page.js",
-  "/product/chuot/page": "app/product/chuot/page.js"
->>>>>>> 7cc100d6e9a7525f9a7c6c3974bf7f83d7414739
+  "/not-found": "app/not-found.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }

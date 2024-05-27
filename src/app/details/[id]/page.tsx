@@ -5,33 +5,30 @@ import CarouselProduct from "./carousel";
 import { ButtonAddToCart } from "@/components/buttonAddCart";
 import { Metadata, ResolvingMetadata } from "next";
 
-
-
-
 type Props = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const id = params.id
-  const product = await getAllDataByID(id)
-  const previousImages = (await parent).openGraph?.images || []
- const image = product?.data[0].thumbnail[0]
- 
+  const id = params.id;
+  const product = await getAllDataByID(id);
+  const previousImages = (await parent).openGraph?.images || [];
+  const image = product?.data[0].thumbnail[0];
+
   return {
     title: product?.data[0].name,
     description: product?.data[0].description,
     openGraph: {
       title: product?.data[0].name,
       description: product?.data[0].description,
-      images: [ { url: image, width: 800, height: 600 }, ...previousImages],
+      images: [{ url: image, width: 800, height: 600 }, ...previousImages],
     },
-  }
+  };
 }
- 
+
 export default async function NameProduct({
   params,
 }: {
