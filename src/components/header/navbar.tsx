@@ -213,13 +213,13 @@ const NavBar = ({
         <div className="w-[200px] flex justify-center items-center sm:justify-start  ">
           <div className="  sm:text-left sm:text-xl    ">
             <Link href="/" className="h-full w-full  ">
-              {/* <Image
+              <Image
                 src="/logo.png"
                 alt="Laptop_TC"
                 height={400}
                 width={400}
                 className="h-full w-full object-cover"
-              /> */}
+              />
             </Link>
             <Link href="/" className="hidden">
               <h1>Laptop_TC</h1>
