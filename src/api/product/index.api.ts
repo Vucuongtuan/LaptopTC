@@ -250,12 +250,6 @@ export const insertComment = async (data: IComment) => {
   const res = await http.post("/comment/insert", data);
   return res;
 };
-export const getAllBlogNoProduct = async (page: string) => {
-  const res = await axios.post(
-    `http://localhost:4000/blog/no-product${"?page=" + page || 1}`
-  );
-  return res;
-};
 export const getBlogByIdProduct = async (id: string) => {
   try {
     const res = await http.post("/blog/product", {
@@ -271,7 +265,7 @@ export const likeComment = async (
   idComment: string,
   idProduct: string
 ) => {
-  const res = await axios.post(`/comment/${idComment}/likes`, {
+  const res = await http.post(`/comment/${idComment}/likes`, {
     userId: idUser,
     idProduct,
   });
@@ -286,7 +280,7 @@ export const replyComment = async (
   idAdmin?: string | null
 ) => {
   if (idAdmin) {
-    const res = await axios.post(`/comment/${idComment}/reply`, {
+    const res = await http.post(`/comment/${idComment}/reply`, {
       idAdmin: idAdmin,
       idProduct,
       comment,
@@ -294,7 +288,7 @@ export const replyComment = async (
     });
     return res;
   }
-  const res = await axios.post(`/comment/${idComment}/reply`, {
+  const res = await http.post(`/comment/${idComment}/reply`, {
     userId: idUser,
     idProduct,
     comment,
@@ -302,8 +296,21 @@ export const replyComment = async (
   });
   return res;
 };
-export const updateBanPhim = async () => {
-  const formData = new FormData();
-  const res = await axios.put(`/product/keyboard`, formData);
+export const updateItem = async (id: string, data: any, type: string) => {
+  const res = await http.put(`product/${type}/id?id=${id}`, data);
   return res;
+};
+export const deleteItem = async (idProduct: string, type: string) => {
+  const res = await http.delete(`product/${type}/id?id=${idProduct}`);
+  return res;
+};
+export const getBlogByName = async (name: string) => {
+  try {
+    const res = await http.post("blog/query", {
+      name: name,
+    });
+    return res;
+  } catch (err) {
+    return err;
+  }
 };

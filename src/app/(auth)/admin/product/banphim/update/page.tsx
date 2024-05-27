@@ -11,11 +11,7 @@ export default async function UpdateBanphimPage({
 }: {
   searchParams: { id: string };
 }) {
-  const [brand, data, type] = await Promise.all([
-    getBrand("ban-phim"),
-    getAllDataByID(searchParams.id),
-    getKeyboardType(),
-  ]);
+  const data = await getAllDataByID(searchParams.id);
 
   return (
     <main className="h-auto">
@@ -44,7 +40,7 @@ export default async function UpdateBanphimPage({
         </div>
       </nav>
       <section className="w-full px-2 h-auto">
-        <FormUpdateBanPhim brand={brand} data={data} type={type} />
+        <FormUpdateBanPhim data={data} />
       </section>
     </main>
   );

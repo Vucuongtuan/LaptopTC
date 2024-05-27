@@ -25,8 +25,8 @@ export const checkTokenADmin = async (token: string | undefined) => {
     return error;
   }
 };
-export const getAllBlog = async () => {
-  const res = await http.get("/blog/all");
+export const getAllBlog = async (page: string) => {
+  const res = await http.get(`/blog/all?page=${page || 1}`);
   return res;
 };
 export const createBlogAPI = async (data: any) => {
@@ -38,7 +38,7 @@ export const createBlogAPI = async (data: any) => {
   formBlog.append("idProduct", data.idProduct);
   formBlog.append("title", data.title);
   formBlog.append("body", data.body);
-  const res = await axios.post("http://localhost:4000/blog/create", formBlog);
+  const res = await http.post("/blog/create", formBlog);
   return res;
 };
 export const getProfileByID = async (id: string) => {

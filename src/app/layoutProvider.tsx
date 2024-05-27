@@ -3,7 +3,6 @@ import React, { ReactNode, useEffect, useState } from "react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { usePathname } from "next/navigation";
-import "react-quill/dist/quill.snow.css";
 export default function LayoutProvider({ children }: { children: ReactNode }) {
   const pathName = usePathname();
   const isAdminPage = pathName.startsWith("/admin");

@@ -27,7 +27,7 @@ export const SigninAccount = async (
 };
 
 export const SignupAccount = async (data: TSignupAccountData) => {
-  const res = await http.post("/account", {
+  const res = await axios.post("/account", {
     email: data.email,
     password: data.password,
     otp: data.otp,
@@ -53,5 +53,9 @@ export const AddToCart = async (data: TAddToCartData) => {
 };
 export const GetIdAll = async () => {
   const res = await http.post("/all-product/allID");
+  return res.data;
+};
+export const getProfileUser = async (id: string) => {
+  const res = await http.post("/account/query?id=" + id);
   return res.data;
 };

@@ -1,10 +1,10 @@
 "use client";
-import { getAllData } from "@/api/product/index.api";
+import { deleteItem, getAllData } from "@/api/product/index.api";
 import { Button } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import * as React from "react";
 import {
   AlertDialog,
@@ -32,17 +32,53 @@ export default function DataTable({ data }: DataTableProps) {
   const { toast } = useToast();
   const searchParams = useSearchParams();
   const [page, setPage] = React.useState<string>("");
+  const [type, setType] = React.useState<string>("");
   const router = useRouter();
+  const pathName = usePathname();
   React.useEffect(() => {
     const query = searchParams.get("page") || "1";
     setPage(query);
   }, [searchParams]);
-
+  React.useEffect(() => {
+    if (pathName === "/admin/product/banphim") {
+      setType("keyboard");
+    } else if (pathName === "/admin/product/chuot") {
+      setType("chuot");
+    } else if (pathName === "/admin/product/laptop") {
+      setType("laptop");
+    }
+  }, [pathName]);
   const handleDeleteProduct = async (id: string) => {
-    toast({
-      title: "Xóa thành công",
-      description: `Sản phẩm có ID : ${id}`,
-    });
+    try {
+      if (pathName === "/admin/product/banphim") {
+        const res = await deleteItem(id, "keyboard");
+        if (res.status === 200)
+          toast({
+            title: res.data.message,
+            description: `Sản phẩm có ID : ${res.data.data._id}`,
+          });
+      } else if (pathName === "/admin/product/chuot") {
+        const res = await deleteItem(id, "mouse");
+        if (res.status === 200)
+          toast({
+            title: res.data.message,
+            description: `Sản phẩm có ID : ${res.data.data._id}`,
+          });
+      } else if (pathName === "/admin/product/laptop") {
+        const res = await deleteItem(id, "laptop");
+        if (res.status === 200)
+          toast({
+            title: res.data.message,
+            description: `Sản phẩm có ID : ${res.data.data._id}`,
+          });
+      }
+    } catch (err) {
+      toast({
+        title: "Xóa không thành công",
+        description: `Vui lòng thử lại sau`,
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -120,7 +156,7 @@ export default function DataTable({ data }: DataTableProps) {
                         <AlertDialogAction
                           onClick={() => {
                             router.push(
-                              `/admin/product/banphim/update?id=${product._id}`
+                              `/admin/product/${type}/update?id=${product._id}`
                             );
                           }}
                         >

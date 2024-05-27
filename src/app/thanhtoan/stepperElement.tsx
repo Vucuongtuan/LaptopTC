@@ -33,6 +33,8 @@ import { CircularProgress } from "@mui/material";
 import { Terminal } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import LoadingElement from "@/components/loading";
+import LoadingPage from "@/components/loadingElement";
 
 const steps = [
   "Giỏ hàng",
@@ -125,6 +127,9 @@ export default function StepperElement() {
 
     try {
       await AddToCart(data);
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("cartItems");
+      }
 
       setIsLoading(false);
       setIsError(false);
@@ -492,17 +497,27 @@ export default function StepperElement() {
       </section>
     );
   };
+
   return (
-    <Box sx={{ width: "70%", margin: "auto" }}>
-      <Stepper nonLinear activeStep={activeStep}>
-        {steps.map((label, index) => (
-          <Step key={label} completed={completed[index]}>
-            <StepButton color="inherit" onClick={handleStep(label, index)}>
-              {label}
-            </StepButton>
-          </Step>
-        ))}
-      </Stepper>
+    <Box sx={{ width: "70%", margin: "auto", position: "relative" }}>
+      {isLoading ? (
+        <div className="absolute top-12 rounded-md h-full bg-[rgba(0,0,0,0.2)] w-full left-0 text-center justify-center items-center">
+          <div className="m-auto">
+            <CircularProgress />
+          </div>
+          <h3>Đang xử lý ,vui long dợi chút ... 😊</h3>
+        </div>
+      ) : (
+        <Stepper nonLinear activeStep={activeStep} className="">
+          {steps.map((label, index) => (
+            <Step key={label} completed={completed[index]} className="">
+              <StepButton color="inherit" onClick={handleStep(label, index)}>
+                {label}
+              </StepButton>
+            </Step>
+          ))}
+        </Stepper>
+      )}
       <div>{layoutStep()}</div>
     </Box>
   );
