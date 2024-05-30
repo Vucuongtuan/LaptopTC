@@ -36,7 +36,7 @@ export default async function Blog({
             });
             return (
               <Link
-                href={`/blog/${slug}`}
+                href={`/blog/${slug}?id=${item._id}`}
                 className="w-full h-[180px]  flex shadow-2xl rounded-md  "
                 key={item._id}
               >

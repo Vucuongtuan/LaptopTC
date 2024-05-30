@@ -47,7 +47,7 @@ export const AddToCart = async (data: TAddToCartData) => {
     total: data.total,
     listProduct: data.listProduct,
   };
-  const res = await http.post("/cart", dataList);
+  const res = await axios.post("http://localhost:4000/cart/add", dataList);
 
   return res.data;
 };
@@ -57,5 +57,15 @@ export const GetIdAll = async () => {
 };
 export const getProfileUser = async (id: string) => {
   const res = await http.post("/account/query?id=" + id);
+  return res.data;
+};
+export const getHoaDonAll = async (page: string) => {
+  const res = await http.get(`/cart/all${page ? `?page=${page || 1}` : ""}`);
+  return res.data;
+};
+export const getHoaDonByUser = async (id: string) => {
+  const res = await http.post(`/cart`, {
+    id: id,
+  });
   return res.data;
 };

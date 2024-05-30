@@ -31,7 +31,9 @@ export default async function DetailsLayout({
     getAllDataByID(params.id),
     getBlogByIdProduct(params.id),
   ]);
-
+  console.log("====================================");
+  console.log(blog);
+  console.log("====================================");
   return (
     <Suspense fallback={<Loading />}>
       <div className="bg-[#f2f2f2]">

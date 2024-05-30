@@ -1,4 +1,8 @@
-import { getBlogByName } from "@/api/product/index.api";
+import {
+  getBlogById,
+  getBlogByIdProduct,
+  getBlogByName,
+} from "@/api/product/index.api";
 import MakupHtml from "@/app/details/[id]/makupHtml";
 import NotFound from "@/app/not-found";
 import BreadcrumdTheme from "@/components/breadcrumbTheme";
@@ -10,10 +14,12 @@ interface Blog {
 }
 export default async function BlogDetails({
   params,
+  searchParams,
 }: {
   params: { slug: string };
+  searchParams: { id: string };
 }) {
-  const blog: Blog | any = await getBlogByName(params.slug);
+  const blog: Blog | any = await getBlogById(searchParams.id);
 
   if (!blog || blog.response?.status !== 200) {
     return <NotFound />;

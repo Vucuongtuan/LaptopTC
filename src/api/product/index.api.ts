@@ -253,8 +253,9 @@ export const insertComment = async (data: IComment) => {
 export const getBlogByIdProduct = async (id: string) => {
   try {
     const res = await http.post("/blog/product", {
-      idProduct: id,
+      id: id,
     });
+
     return res;
   } catch (error) {
     return "";
@@ -313,4 +314,8 @@ export const getBlogByName = async (name: string) => {
   } catch (err) {
     return err;
   }
+};
+export const getBlogById = async (id: string) => {
+  const res = await axios.post(`http://localhost:4000/post-content/${id}`);
+  return res;
 };

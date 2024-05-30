@@ -184,6 +184,18 @@ export default function SidebarAdmin({
                 </span>
               </Link>
             </li>
+            <li className="mt-3 w-full">
+              <Link
+                className={`py-4 shadow-soft-xl text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg  px-4 font-semibold text-slate-700 transition-colors ${
+                  pathname === "/admin/don-hang" ? "bg-slate-200" : ""
+                }`}
+                href="/admin/don-hang"
+              >
+                <span className=" duration-300 opacity-100 pointer-events-none ease-soft font-medium text-black text-[15px]">
+                  Đơn hàng
+                </span>
+              </Link>
+            </li>
           </ul>
         </div>
         <div className="absolute bottom-1 flex  h-[80px] border-t-2 w-full">

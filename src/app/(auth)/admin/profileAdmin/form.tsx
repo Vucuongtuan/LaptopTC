@@ -71,7 +71,10 @@ export default function FormProfile() {
           <div className="grid grid-cols-1 md:grid-cols-3">
             <div className="relative ">
               <div className="w-48 h-48 text-[5rem] bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
-                {data?.data.name.charAt(0).toLocaleUpperCase()}
+                {data &&
+                  data?.data &&
+                  data?.data?.name &&
+                  data?.data.name.charAt(0).toLocaleUpperCase()}
               </div>
             </div>
           </div>

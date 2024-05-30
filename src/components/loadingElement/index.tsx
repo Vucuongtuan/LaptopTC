@@ -7,7 +7,7 @@ export default function LoadingPage() {
       <div className="m-auto">
         <CircularProgress />
       </div>
-      <h3>Đang xử lý ,vui long dợi chút ... 😊</h3>
+      <h3>Đang xử lý ,vui lòng đợi chút ... 😊</h3>
     </div>
   );
 }

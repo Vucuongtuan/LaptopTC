@@ -386,8 +386,7 @@ export default function StepperElement() {
         <div className="flex flex-col justify-center items-center text-2xl  h-[300px]">
           {isLoading === true ? (
             <>
-              <CircularProgress color="success" />
-              <span>Đang xử lý ...</span>
+              <LoadingPage />;
             </>
           ) : (
             <>
