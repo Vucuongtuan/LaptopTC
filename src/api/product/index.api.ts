@@ -298,16 +298,16 @@ export const replyComment = async (
   return res;
 };
 export const updateItem = async (id: string, data: any, type: string) => {
-  const res = await http.put(`product/${type}/id?id=${id}`, data);
+  const res = await http.put(`/product/${type}/id?id=${id}`, data);
   return res;
 };
 export const deleteItem = async (idProduct: string, type: string) => {
-  const res = await http.delete(`product/${type}/id?id=${idProduct}`);
+  const res = await http.delete(`/product/${type}/id?id=${idProduct}`);
   return res;
 };
 export const getBlogByName = async (name: string) => {
   try {
-    const res = await http.post("blog/query", {
+    const res = await http.post("/blog/query", {
       name: name,
     });
     return res;
@@ -316,6 +316,6 @@ export const getBlogByName = async (name: string) => {
   }
 };
 export const getBlogById = async (id: string) => {
-  const res = await axios.post(`http://localhost:4000/post-content/${id}`);
+  const res = await http.post(`/post-content/${id}`);
   return res;
 };

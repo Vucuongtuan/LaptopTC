@@ -27,7 +27,7 @@ export const SigninAccount = async (
 };
 
 export const SignupAccount = async (data: TSignupAccountData) => {
-  const res = await axios.post("/account", {
+  const res = await http.post("/account", {
     email: data.email,
     password: data.password,
     otp: data.otp,
@@ -47,7 +47,7 @@ export const AddToCart = async (data: TAddToCartData) => {
     total: data.total,
     listProduct: data.listProduct,
   };
-  const res = await axios.post("http://localhost:4000/cart/add", dataList);
+  const res = await http.post("/cart/add", dataList);
 
   return res.data;
 };
