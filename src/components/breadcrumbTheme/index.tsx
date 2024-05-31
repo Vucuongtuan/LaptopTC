@@ -34,10 +34,10 @@ export default function BreadcrumdTheme({ nameb }: { nameb?: string }) {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           {nameb ? (
-            <h1>{nameb}</h1>
+            <span>{nameb}</span>
           ) : (
             <BreadcrumbLink href={`/product/` + pathName}>
-              <h1>{pathName}</h1>
+              <span>{pathName}</span>
             </BreadcrumbLink>
           )}
         </BreadcrumbItem>

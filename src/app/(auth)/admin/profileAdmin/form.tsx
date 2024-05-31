@@ -74,7 +74,7 @@ export default function FormProfile() {
                 {data &&
                   data?.data &&
                   data?.data?.name &&
-                  data?.data.name.charAt(0).toLocaleUpperCase()}
+                  data?.data?.name.charAt(0).toLocaleUpperCase()}
               </div>
             </div>
           </div>

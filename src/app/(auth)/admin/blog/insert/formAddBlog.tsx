@@ -189,7 +189,7 @@ function CreateBlog() {
         description: data.description,
         author: data.author,
         idAuthor: data.idAuthor,
-        idProduct: data.idProduct,
+        idProduct: data.idProduct || "null",
         thumbnail: thumbnail,
         body: data.content,
       };
@@ -197,10 +197,10 @@ function CreateBlog() {
       const res = await createBlogAPI(newData);
 
       if (res.status === 200) {
+        reset();
         toast({
           title: "Thêm mới bài viết thành cống",
         });
-        reset();
       } else if (res.status === 500) {
         toast({
           title: "Thêm mới thất bại",

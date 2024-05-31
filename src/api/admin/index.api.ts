@@ -59,3 +59,13 @@ export const getOnlineAdmin = async () => {
     return null;
   }
 };
+export const getBlogNew = async (page?: number, limit?: number) => {
+  let query = "";
+  if (page !== undefined) {
+    query = `?page=${page}`;
+  } else if (limit !== undefined) {
+    query = `?limit=${limit}`;
+  }
+  const res = await http.get(`/blog/new${query}`);
+  return res;
+};

@@ -252,9 +252,7 @@ export const insertComment = async (data: IComment) => {
 };
 export const getBlogByIdProduct = async (id: string) => {
   try {
-    const res = await http.post("/blog/product", {
-      id: id,
-    });
+    const res = await http.post(`/blog/product/${id}`);
 
     return res;
   } catch (error) {
@@ -316,6 +314,6 @@ export const getBlogByName = async (name: string) => {
   }
 };
 export const getBlogById = async (id: string) => {
-  const res = await http.post(`/post-content/${id}`);
+  const res = await http.post(`/blog/${id}`);
   return res;
 };

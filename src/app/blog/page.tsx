@@ -37,7 +37,7 @@ export default async function Blog({
             return (
               <Link
                 href={`/blog/${slug}?id=${item._id}`}
-                className="w-full h-[180px]  flex shadow-2xl rounded-md  "
+                className="w-full h-[180px]  flex shadow-2xl rounded-md  bg-white"
                 key={item._id}
               >
                 <Image
@@ -48,7 +48,7 @@ export default async function Blog({
                   className="w-2/5 h-full object-cover"
                 />
                 <div className="h-full w-3/5 px-2 py-1 relative">
-                  <span>{item.description}</span>
+                  <h3 className="text-lg font-semibold">{item.description}</h3>
                   <div className="absolute flex justify-between bottom-0 left-0 px-2 py-1 text-sm w-full">
                     <span>Author : {item.author}</span>
                     <span>

@@ -103,17 +103,28 @@ export interface IBrand {
   thumbnail: string;
 }
 
-export type TButtonAddToCart = {
+export interface IButtonAddToCart {
   _id: number | string;
   name: string;
   thumbnail: string;
   description: string;
   total: number;
-};
-export type ProductCardProps = {
+}
+export interface IProductCardProps {
   data: IApiProduct[] | IApiKeyboard[] | IApiMouse[];
-};
-export type IComment = {
+}
+export interface IComment {
   idProduct: string;
   comment?: any | null;
-};
+}
+export interface INewBlog {
+  _id: string;
+  title: string;
+  thumbnail: string;
+  description: string;
+  body: string;
+  author: string;
+  idAuthor: string;
+  idProduct: string;
+  date_create: Date;
+}

@@ -1,7 +1,7 @@
 import { getAllData, getAllDataByID } from "@/api/product/index.api";
-import { TButtonAddToCart } from "@/types/data/index.types";
+import { IButtonAddToCart } from "@/types/data/index.types";
 import React from "react";
-import CarouselProduct from "./carousel";
+import CarouselProduct from "./component/carousel";
 import { ButtonAddToCart } from "@/components/buttonAddCart";
 import { Metadata, ResolvingMetadata } from "next";
 
@@ -38,7 +38,7 @@ export default async function NameProduct({
 
   const item = data[0];
   const totalDis = (item.total * item?.discount_percent) / 100;
-  const dataAddCart: TButtonAddToCart = {
+  const dataAddCart: IButtonAddToCart = {
     _id: item._id,
     thumbnail: item.thumbnail[0],
     name: item.name,
