@@ -2,10 +2,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setArrayCart, setCheckCartLocal } from "@/lib/features/checkCartLocal";
-import { TButtonAddToCart } from "@/types/data/index.types";
+import { IButtonAddToCart } from "@/types/data/index.types";
 
 interface ButtonAddToCartProps {
-  data: TButtonAddToCart;
+  data: IButtonAddToCart;
 }
 
 export const ButtonAddToCart: React.FC<ButtonAddToCartProps> = ({ data }) => {
