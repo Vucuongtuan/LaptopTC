@@ -64,8 +64,10 @@ const editorConfig = {
 };
 export default function TextEditor({
   handleContentChange,
+  dataBody,
 }: {
   handleContentChange: any;
+  dataBody?: string;
 }) {
   const handleEditorChange = (event: any, editor: any) => {
     const data = editor.getData();
@@ -75,7 +77,7 @@ export default function TextEditor({
     <CKEditor
       editor={ClassicEditor}
       config={editorConfig}
-      data="<p>Hello !</p>"
+      data={dataBody || "<p>Hello !</p>"}
       onChange={handleEditorChange}
     />
   );

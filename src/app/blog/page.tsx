@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import slugify from "slugify";
+import PaginationBlog from "./pagination";
 
 export default async function Blog({
   searchParams,
@@ -59,6 +60,9 @@ export default async function Blog({
               </Link>
             );
           })}
+        </section>
+        <section className="flex justify-center items-center py-6">
+          <PaginationBlog totalPage={blog?.data?.totalPage} query={checkPage} />
         </section>
       </Container>
     </main>

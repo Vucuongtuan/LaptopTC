@@ -16,5 +16,7 @@ export default function PaginationBlog({
   ) => {
     router.push("/blog?page=" + value);
   };
-  return <Pagination count={10} page={query} onChange={handleChangePageBlog} />;
+  return (
+    <Pagination count={query} page={query} onChange={handleChangePageBlog} />
+  );
 }

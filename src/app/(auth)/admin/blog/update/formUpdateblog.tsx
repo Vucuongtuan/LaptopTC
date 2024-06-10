@@ -17,10 +17,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { createBlogAPI } from "@/api/admin/index.api";
+import { createBlogAPI, updateBlog } from "@/api/admin/index.api";
 import { useToast } from "@/components/ui/use-toast";
 import { Description } from "@radix-ui/react-toast";
 import TextEditor from "@/components/textEditor";
+import { INewBlog } from "@/types/data/index.types";
 
 // const modules = {
 //   toolbar: [
@@ -50,7 +51,13 @@ import TextEditor from "@/components/textEditor";
 //   "image",
 // ];
 
-function CreateBlog() {
+function FormUpdateBlog({
+  defaultContent,
+  id,
+}: {
+  defaultContent: any;
+  id: string;
+}) {
   const [thumbnail, setThumbnail] = React.useState<any[]>([]);
   const [search, setSearch] = React.useState<string>("");
   const [listProduct, setListProduct] = React.useState<any[] | undefined>([]);
@@ -64,10 +71,7 @@ function CreateBlog() {
     reset,
     formState: { errors },
   } = useForm();
-  const [content, setContent] = React.useState<string>("");
-  const auth = useSelector((auth: RootState) => auth.auth.adminName);
   const local = window ? localStorage.getItem("adminData") : "";
-  const nameData = JSON.parse(local ?? "");
   const handleContentChange = (value: string) => {
     const idAdmin = JSON.parse(localStorage.getItem("adminData") ?? "").adminId;
     setValue("idAuthor", idAdmin);
@@ -182,7 +186,6 @@ function CreateBlog() {
   );
   const onSubmit = async (data: any) => {
     isLoading(true);
-
     try {
       const newData = {
         title: data.title,
@@ -194,21 +197,21 @@ function CreateBlog() {
         body: data.content,
       };
 
-      const res = await createBlogAPI(newData);
+      const res = await updateBlog(id, newData);
 
       if (res.status === 200) {
         reset();
         toast({
-          title: "Thêm mới bài viết thành cống",
+          title: "Cập nhật bài viết thành cống",
         });
       } else if (res.status === 500) {
         toast({
-          title: "Thêm mới thất bại",
+          title: "Cập nhật thất bại",
           description: `${res.data.message}`,
         });
       } else if (res.status === 400) {
         toast({
-          title: "Thêm mới thất bại",
+          title: "Cập nhật thất bại",
           description: `${res.data.message}`,
         });
       }
@@ -232,6 +235,7 @@ function CreateBlog() {
             </p>
             <input
               type="text"
+              defaultValue={defaultContent.title}
               placeholder="title"
               {...register("title", { required: true })}
               className="w-full py-2 rounded-md px-1"
@@ -243,6 +247,7 @@ function CreateBlog() {
             </p>
             <input
               type="text"
+              defaultValue={defaultContent.description}
               placeholder="description"
               {...register("description", { required: true })}
               className="w-full py-2 rounded-md px-1"
@@ -254,6 +259,7 @@ function CreateBlog() {
             </p>
             <input
               type="text"
+              defaultValue={defaultContent.author}
               placeholder="author"
               {...register("author", { required: true })}
               className="w-full py-2 rounded-md px-1"
@@ -279,35 +285,49 @@ function CreateBlog() {
             onChange={handleFileChange}
           />
           <div className="w-full h-4/5 bg-slate-200 flex justify-center items-center px-4 rounded-md overflow-hidden relative">
-            {thumbnail ? (
-              thumbnail.map((thumbnail, index) => {
-                const previewThumbnail = URL.createObjectURL(thumbnail);
-                return (
-                  <Image
-                    key={index}
-                    src={previewThumbnail}
-                    alt={"demo hình ảnh"}
-                    width={200}
-                    height={200}
-                    className=" object-fill"
-                  />
-                );
-              })
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="w-16 h-16"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+            {defaultContent.thumbnail ? (
+              <>
+                <Image
+                  src={defaultContent.thumbnail}
+                  alt={"demo hình ảnh"}
+                  width={200}
+                  height={200}
+                  className=" object-fill"
                 />
-              </svg>
+              </>
+            ) : (
+              <>
+                {thumbnail ? (
+                  thumbnail.map((thumbnail, index) => {
+                    const previewThumbnail = URL.createObjectURL(thumbnail);
+                    return (
+                      <Image
+                        key={index}
+                        src={previewThumbnail}
+                        alt={"demo hình ảnh"}
+                        width={200}
+                        height={200}
+                        className=" object-fill"
+                      />
+                    );
+                  })
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="w-16 h-16"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                    />
+                  </svg>
+                )}
+              </>
             )}
           </div>
         </div>
@@ -318,15 +338,18 @@ function CreateBlog() {
         modules={modules}
         formats={formats}
       /> */}
-      <TextEditor handleContentChange={handleContentChange} />
+      <TextEditor
+        handleContentChange={handleContentChange}
+        dataBody={defaultContent.body}
+      />
       <Button
         variant="contained"
         type="submit"
         className="w-full mt-2 bg-slate-500 text-black"
       >
-        Create Blog
+        Update Blog
       </Button>
     </form>
   );
 }
-export default memo(CreateBlog);
+export default memo(FormUpdateBlog);

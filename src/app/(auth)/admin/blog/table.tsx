@@ -94,7 +94,15 @@ export default function TableBlogAll({ data }: IBlogProps) {
                     <AlertDialogDescription></AlertDialogDescription>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Thoát</AlertDialogCancel>
-                      <AlertDialogAction>Sửa</AlertDialogAction>
+                      <AlertDialogAction>
+                        <Link
+                          href={`/admin/blog/update?id=${blog._id}`}
+                          className="w-full h-full text-center"
+                        >
+                          {" "}
+                          Sửa
+                        </Link>
+                      </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>

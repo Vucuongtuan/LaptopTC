@@ -69,3 +69,7 @@ export const getBlogNew = async (page?: number, limit?: number) => {
   const res = await http.get(`/blog/new${query}`);
   return res;
 };
+export const updateBlog = async (id: string, data: any) => {
+  const res = await http.put(`/blog/update/${id}`, data);
+  return res;
+};
