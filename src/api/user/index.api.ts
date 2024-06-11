@@ -69,3 +69,15 @@ export const getHoaDonByUser = async (id: string) => {
   });
   return res.data;
 };
+export const updateStatusCart = async (
+  id: any,
+  idUser: string,
+  status: string | null
+) => {
+  const res = await http.put(`/cart/update`, {
+    id,
+    idUser,
+    status,
+  });
+  return res.data;
+};

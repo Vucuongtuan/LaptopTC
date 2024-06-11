@@ -89,77 +89,83 @@ export default async function HoaDonPage({
           </tr>
         </thead>
         <tbody>
-          {data &&
-            data?.data
-              .filter((item: any) => item.items.length > 0)
-              .map((item: any, index: number) => (
-                <tr key={item._id}>
-                  <td
-                    className={`text-center hover:after:contents-['...'] hover:after:top-0`}
-                  >
-                    {index + 1}
-                  </td>
-                  <td>{item.name}</td>
-                  <td>
-                    <p>Email: {item.email}</p>
-                    <p>SDT: {item.phone}</p>
-                  </td>
-                  <td>{item.address}</td>
-                  <td>{item.status || "Chưa giao"}</td>
-                  <td>
-                    <HoverCard>
-                      <HoverCardTrigger>
-                        {item.total
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                        VND
-                      </HoverCardTrigger>
-                      <HoverCardContent className="w-[420px]">
-                        <div className="flex gap-2 flex-wrap w-full h-auto">
-                          {item.items.map((item: any) => (
-                            <div className="h-[100px] w-full " key={item._id}>
-                              {item.products.map((product: any) => (
-                                <div className="flex" key={product.name}>
-                                  <Image
-                                    src={product.thumbnail}
-                                    alt={product.name}
-                                    height={100}
-                                    width={100}
-                                    className="h-[100px] w-1/3"
-                                  />
-                                  <div className=" relative">
-                                    <span>{product.name}</span>
-                                    <span>
-                                      {product.total}{" "}
-                                      {`(SL : ${product.quantity})`}
-                                    </span>
-                                    <p className=" absolute bottom-0 right-1">
-                                      {" "}
-                                      {product &&
-                                        product.total &&
-                                        product.total
-                                          .toString()
-                                          .replace(
-                                            /\B(?=(\d{3})+(?!\d))/g,
-                                            "."
-                                          )}{" "}
-                                      VND
-                                    </p>
-                                  </div>
+          {data && data?.status !== 404 ? (
+            data?.data.map((item: any, index: number) => (
+              <tr key={item._id}>
+                <td
+                  className={`text-center hover:after:contents-['...'] hover:after:top-0`}
+                >
+                  {index + 1}
+                </td>
+                <td>{item.name}</td>
+                <td>
+                  <p>Email: {item.email}</p>
+                  <p>SDT: {item.phone}</p>
+                </td>
+                <td>{item.address}</td>
+                <td>
+                  <span>{item.status || "Chưa giao"}</span>
+                </td>
+                <td>
+                  <HoverCard>
+                    <HoverCardTrigger>
+                      {item.total
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                      VND
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-[420px]">
+                      <div className="flex gap-2 flex-wrap w-full h-auto max-h-[300px] overflow-y-scroll ">
+                        {item.items.map((items: any) => {
+                          return (
+                            <div className="h-[100px] w-full " key={items._id}>
+                              <div className="flex" key={items.name}>
+                                <Image
+                                  src={items.thumbnail}
+                                  alt={items.name}
+                                  height={100}
+                                  width={100}
+                                  className="h-[100px] w-1/3"
+                                />
+                                <div className=" relative">
+                                  <span>{items.name}</span>
+                                  <span>
+                                    {items.total} {`(SL : ${items.quantity})`}
+                                  </span>
+                                  <p className=" absolute bottom-0 right-1 text-red-600 font-medium">
+                                    {" "}
+                                    {items &&
+                                      items.total &&
+                                      items.total
+                                        .toString()
+                                        .replace(
+                                          /\B(?=(\d{3})+(?!\d))/g,
+                                          "."
+                                        )}{" "}
+                                    VND
+                                  </p>
                                 </div>
-                              ))}
+                              </div>
                             </div>
-                          ))}
-                        </div>
-                      </HoverCardContent>
-                    </HoverCard>
-                  </td>
-                  <td className=" space-x-3">
-                    <Update id={item._id} status={item.status || "Chưa giao"} />
-                    {/* <Button variant={"destructive"}>Xóa</Button> */}
-                  </td>
-                </tr>
-              ))}
+                          );
+                        })}
+                      </div>
+                    </HoverCardContent>
+                  </HoverCard>
+                </td>
+                <td className=" space-x-3">
+                  <Update
+                    id={item._id}
+                    idUser={item.idUser}
+                    status={item.status}
+                  />
+                  {/* <Button variant={"destructive"}>Xóa</Button> */}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <h3>{data?.message}</h3>
+          )}
         </tbody>
       </table>
       <Suspense fallback={null}>
