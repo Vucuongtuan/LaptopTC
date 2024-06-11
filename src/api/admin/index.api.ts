@@ -78,9 +78,6 @@ export const updateBlog = async (id: string, data: any) => {
   formBlog.append("idProduct", data.idProduct);
   formBlog.append("title", data.title);
   formBlog.append("body", data.body);
-  const res = await axios.put(
-    `http://localhost:4000/blog/update/${id}`,
-    formBlog
-  );
+  const res = await http.put(`/blog/update/${id}`, formBlog);
   return res;
 };

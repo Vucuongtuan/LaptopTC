@@ -1,11 +1,11 @@
 import Image from "next/image";
 import React from "react";
-
+import defaultImage from "@/assets/image/istockphoto-1409329028-612x612.jpg";
 export default function BlogCard({ data }: { data: any }) {
   return (
     <div className="w-full h-full p-4 ">
       <Image
-        src={data.thumbnail}
+        src={data.thumbnail || defaultImage}
         alt={data.description}
         width={200}
         height={170}
