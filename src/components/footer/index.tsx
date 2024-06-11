@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Footer = (): JSX.Element => {
   return (
     <footer className="px-16 sm:px-2">
@@ -148,13 +150,14 @@ const Footer = (): JSX.Element => {
                 </li>
 
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/blog"
+                    scroll={false}
                     className="text-gray-700 transition hover:opacity-75"
                   >
                     {" "}
                     Tin tức công nghệ{" "}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -241,7 +244,15 @@ const Footer = (): JSX.Element => {
           </div>
         </div>
         <p className="text-xs text-gray-500">
-          &copy; 2022. Company Name. All rights reserved.
+          &copy; 2024. Project E-commerce Laptop.{" "}
+          <Link
+            href="https://github.com/Vucuongtuan/LaptopTC"
+            className="text-blue-400 font-medium hover:text-red-400"
+          >
+            {" "}
+            Link project
+          </Link>
+          .
         </p>
       </div>
     </footer>
