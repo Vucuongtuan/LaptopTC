@@ -21,6 +21,7 @@ import { createBlogAPI } from "@/api/admin/index.api";
 import { useToast } from "@/components/ui/use-toast";
 import { Description } from "@radix-ui/react-toast";
 import TextEditor from "@/components/textEditor";
+import http from "@/utils/axios";
 
 // const modules = {
 //   toolbar: [
@@ -76,16 +77,10 @@ function CreateBlog() {
 
   React.useEffect(() => {
     const searchQuery = debounce(async () => {
-      const res = await fetch("http://localhost:4000/all-product/search", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name: search }),
-      });
-      const data = await res.json();
+      const res = await http.post("/all-product/search", { name: search });
+
       if (res.status === 200) {
-        setListProduct(data);
+        setListProduct(res.data);
       } else if (res.status === 404) {
         setListProduct(undefined);
       }
@@ -110,8 +105,8 @@ function CreateBlog() {
       <AlertDialogTrigger className="w-full bg-black py-2 rounded-md text-white hover:bg-slate-800">
         Chọn sản phẩm
       </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
+      <AlertDialogContent className="w-[1700px] overflow-hidden px-4">
+        <AlertDialogHeader className="w-full">
           <AlertDialogTitle>Chọn {/*sản phẩm ?*/}</AlertDialogTitle>
           <AlertDialogDescription>
             <div className="w-full h-[350px] text-left">
@@ -121,55 +116,59 @@ function CreateBlog() {
                 className="w-full py-2 px-2 rounded-md border-2 border-spacing-2 border-black"
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <p className="py-2">
-                <h3>Kết quả</h3>
-              </p>
-              <div className={` h-[280px] overflow-y-scroll`}>
-                {listProduct === undefined ? (
-                  <span className="text-xl">Không có sản phẩm nào</span>
-                ) : (
-                  listProduct.map((item) => {
-                    const newTotal =
-                      item.total -
-                      (parseInt(item.total) * item.discount_percent) / 100;
-                    return (
-                      <div
-                        className="w-full h-[160px] flex mb-2 rounded-md shadow-md cursor-pointer "
-                        key={item._id}
-                        onClick={() => {
-                          setValue("idProduct", item._id);
-                          setProduct(item.name);
-                        }}
-                      >
-                        <AlertDialogAction className="break-all w-full  h-full bg-white hover:bg-slate-100">
-                          <div className="w-1/3 h-full overflow-hidden">
-                            <Image
-                              src={item.thumbnail[0]}
-                              alt={item.description}
-                              width={200}
-                              height={200}
-                              className="object-cover"
-                            />
-                          </div>
-                          <div className="w-2/3 px-2 py-2 h-full text-black break-all">
-                            <h4 className="break-all">{item.name}</h4>
-                            <div className="flex px-2 mt-4 text-xl">
-                              <span className="text-red-500">
-                                {newTotal
-                                  .toString()
-                                  .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                                VND
-                              </span>
-                              <div className=" border-red-500 text-sm ml-5">
-                                - {item.discount_percent} %
+              <div className="w-full h-auto px-3">
+                <p className="py-2">
+                  <h3>Kết quả</h3>
+                </p>
+                <div className={` h-[280px] w-full overflow-y-scroll`}>
+                  {listProduct === undefined ? (
+                    <span className="text-xl">Không có sản phẩm nào</span>
+                  ) : (
+                    listProduct.map((item) => {
+                      const newTotal =
+                        item.total -
+                        (parseInt(item.total) * item.discount_percent) / 100;
+                      return (
+                        <div
+                          className="w-full h-[160px] flex mb-2 rounded-md shadow-md cursor-pointer "
+                          key={item._id}
+                          onClick={() => {
+                            setValue("idProduct", item._id);
+                            setProduct(item.name);
+                          }}
+                        >
+                          <AlertDialogAction className="break-all w-full  h-full bg-white hover:bg-slate-100">
+                            <div className="w-1/3 h-full overflow-hidden">
+                              <Image
+                                src={item.thumbnail[0]}
+                                alt={item.description}
+                                width={200}
+                                height={200}
+                                className="object-cover"
+                              />
+                            </div>
+                            <div className="w-2/3 px-2 py-2 h-full text-black ">
+                              <h4 className=" text-lg text-wrap h-auto text-left">
+                                {item.name}
+                              </h4>
+                              <div className="flex px-2 mt-4 text-xl">
+                                <span className="text-red-500">
+                                  {newTotal
+                                    .toString()
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                                  VND
+                                </span>
+                                <div className=" border-red-500 text-sm ml-5">
+                                  - {item.discount_percent} %
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </AlertDialogAction>
-                      </div>
-                    );
-                  })
-                )}
+                          </AlertDialogAction>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
               </div>
             </div>
           </AlertDialogDescription>

@@ -196,7 +196,9 @@ function FormUpdateBlog({
         thumbnail: thumbnail,
         body: data.content,
       };
-
+      console.log("====================================");
+      console.log(newData);
+      console.log("====================================");
       const res = await updateBlog(id, newData);
 
       if (res.status === 200) {
@@ -282,6 +284,7 @@ function FormUpdateBlog({
             type="file"
             {...register("thumbnail")}
             className="h-1/5"
+            // defaultValue={defaultContent.thumbnail}
             onChange={handleFileChange}
           />
           <div className="w-full h-4/5 bg-slate-200 flex justify-center items-center px-4 rounded-md overflow-hidden relative">

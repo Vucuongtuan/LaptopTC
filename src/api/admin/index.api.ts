@@ -70,6 +70,17 @@ export const getBlogNew = async (page?: number, limit?: number) => {
   return res;
 };
 export const updateBlog = async (id: string, data: any) => {
-  const res = await http.put(`/blog/update/${id}`, data);
+  const formBlog = new FormData();
+  formBlog.append("description", data.description);
+  formBlog.append("thumbnail", data.thumbnail[0]);
+  formBlog.append("idAuthor", data.idAuthor);
+  formBlog.append("author", data.author);
+  formBlog.append("idProduct", data.idProduct);
+  formBlog.append("title", data.title);
+  formBlog.append("body", data.body);
+  const res = await axios.put(
+    `http://localhost:4000/blog/update/${id}`,
+    formBlog
+  );
   return res;
 };

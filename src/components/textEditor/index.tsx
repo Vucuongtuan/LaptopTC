@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 const editorConfig = {
@@ -69,15 +69,30 @@ export default function TextEditor({
   handleContentChange: any;
   dataBody?: string;
 }) {
+  const [editorData, setEditorData] = useState<string>(
+    dataBody || "<p>Hello !</p>"
+  );
   const handleEditorChange = (event: any, editor: any) => {
     const data = editor.getData();
+    console.log("====================================");
+    console.log(data);
+    console.log("====================================");
     handleContentChange(data);
   };
+  useEffect(() => {
+    setEditorData(dataBody || "<p>Hello !</p>");
+  }, [dataBody]);
+
+  const handleEditorReady = (editor: any) => {
+    editor.setData(editorData);
+  };
+
   return (
     <CKEditor
       editor={ClassicEditor}
       config={editorConfig}
-      data={dataBody || "<p>Hello !</p>"}
+      data={editorData}
+      onReady={handleEditorReady}
       onChange={handleEditorChange}
     />
   );
