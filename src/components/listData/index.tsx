@@ -8,7 +8,7 @@ type ListProductProps = {
 };
 export default function ListData({ data, name }: ListProductProps) {
   return (
-    <section className="mt-2 rounded-md shadow-md">
+    <section className="mt-2 rounded-md ">
       <div className="py-4 px-1 ">
         <h2 className="h-full font-semibold  flex items-center">
           <Link

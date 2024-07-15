@@ -20,6 +20,7 @@ import EvaluationForm from "./component/evaluationForm";
 import { log } from "console";
 import { INewBlog } from "@/types/data/index.types";
 import Image from "next/image";
+import slugify from "slugify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -56,8 +57,20 @@ export default async function DetailsLayout({
               <h2 className="text-xl font-semibold mb-2">Tin tức mới</h2>
               {newBlog?.data.data.map((item: INewBlog) => {
                 const date = new Date(item.date_create);
+                const slug = slugify(item.title as string, {
+                  replacement: "-",
+                  remove: undefined,
+                  lower: false,
+                  strict: false,
+                  locale: "vi",
+                  trim: true,
+                });
                 return (
-                  <div className="w-full h-[100px] flex" key={item._id}>
+                  <Link
+                    href={`/blog/${slug}?id=${item._id}`}
+                    className="w-full h-[100px] flex"
+                    key={item._id}
+                  >
                     <Image
                       src={item.thumbnail}
                       alt={item.title}
@@ -78,7 +91,7 @@ export default async function DetailsLayout({
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
